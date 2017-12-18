@@ -1,0 +1,36 @@
+/* botones para la barra superior de las pantallas */
+.botonA a{height: 12px; width: 60px; font-family: Arial, Verdana, sans-serif; font-size: 9px; font-weight: bold; text-align:center; text-decoration:none; padding: 50px 0 0 0px; border: 1px solid transparent; background-repeat:no-repeat; background-position:center 2px; display:block;white-space:normal;}
+.botonA a:hover{border:1px solid #CADFFF; background-color:#BED6F8; background-repeat:no-repeat}
+
+
+.botonA a.EDITCURUSR{background-image:url("#{resource['images/icons/SOFCAPHOME/36X36:EDITCURUSR.png']}"); width:30px;height:30px;padding: 0px 0 0 0px!important;background-position: center 0px !important;}
+/* */
+.botonA a.EDITCAPA{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITCAP.png']}"); width:45px}
+.botonA a.NEWCOURSEA{background-image:url("#{resource['images/icons/SOFCAPHOME:NEWCOURSE.png']}"); width:45px}
+.botonA a.NEWPLANA{background-image:url("#{resource['images/icons/SOFCAPHOME:NEWPLAN.png']}"); width:45px;}
+.botonA a.PLANASSISA{background-image:url("#{resource['images/icons/SOFCAPHOME:PLANASSIS.png']}"); width:45px}
+.botonA a.REPORTA{background-image:url("#{resource['images/icons/SOFCAPHOME:REPORT.png']}"); width:45px}
+.botonA a.CLOSES{background-image:url("#{resource['images/icons/SOFCAPHOME:CLOSESES.png']}"); width:45px}
+.botonA a.EDITTHEME{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITTHEME.png']}"); width:45px}
+.botonA a.EDITUSER{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITUSER.png']}"); width:45px}
+.botonA a.EDITHCOU{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITHCOU.png']}"); width:45px}
+.botonA a.EDITLEAD{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITLEAD.png']}"); width:45px}
+
+
+/* botones para los segmentos de las pantallas */
+.botonD a{background-color: #CADFFF; color:#000000; background-repeat:no-repeat;background-position:2px 2px; height:25px; width:85px; font-family:Arial,Verdana,sans-serif; font-size:10px; font-weight:bolder; text-align:left; text-decoration:none; padding:13px 0px 2px 35px; border-width:1px; border-style:solid; border-color:#F2F7FF #BED6F8 #BED6F8 #F2F7FF; display:block; }
+.botonD a:hover{border-width:1px; border-style:solid; border-color:#FCF1D6 #E5973E #E5973E #FCF1D6; background-color:#BED6F8 ; background-repeat:no-repeat}
+
+.botonD a.REPCIN{background-image:url("#{resource['images/icons/SOFCAPREPORT/32X32:CIndividual.png']}"); width:85px}
+.botonD a.REPASN{background-image:url("#{resource['images/icons/SOFCAPREPORT/32X32:AsistenciaNoLead.png']}"); width:85px}
+.botonD a.REPASI{background-image:url("#{resource['images/icons/SOFCAPREPORT/32X32:Asistencia.png']}"); width:85px}
+.botonD a.ADDTEA{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDTEACHER.png']}"); width:85px}
+.botonD a.ADDPLA{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDPLA.png']}"); width:85px}
+.botonD a.ADDASI{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:CHEASI.png']}"); width:85px}
+.botonD a.ADDTHEME{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDTHEME.png']}"); width:85px}
+.botonD a.RETURN{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:RETURN.png']}"); width:85px}
+.botonD a.SAVE{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:SAVE.png']}"); width:85px}
+.botonD a.ADDUSR{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDUSER.png']}"); width:85px}
+.botonD a.DELETE{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:DELETE.png']}"); width:85px}
+.botonD a.EDIT{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:EDIT.png']}"); width:85px}
+.botonD a.CANCEL{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:CANCEL.png']}"); width:85px}

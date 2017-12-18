@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Reporte Instructores" />
+
+    <ui:define name="header">
+        <h:panelGrid columns="4" cellpadding="0" cellspacing="0">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                        <a4j:commandLink value="Guardar usuario" styleClass="SAVE" 
+                                         rendered="#{nuevaCapacitacionDataManager.paso=='visualizar'}"
+                                         action="#{nuevaCapacitacionController.guardarUsuario(nuevaCapacitacionDataManager.usuarioEdicion)}" execute="@form"/>
+                </h:panelGroup> 
+                <h:panelGroup layout="block" styleClass="botonD" >
+                        <a4j:commandLink value="Guardar usuario" styleClass="SAVE" 
+                                         rendered="#{nuevaCapacitacionDataManager.paso=='nuevo'}"
+                                         action="#{nuevaCapacitacionController.guardarUsuarioNuevo(nuevaCapacitacionDataManager.usuarioEdicion)}" execute="@form"/>
+                </h:panelGroup> 
+        </h:panelGrid>
+        <rich:toolbarGroup location="right">
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverListaUsuarios}" />
+            </h:panelGroup>
+        </rich:toolbarGroup>
+        </ui:define>
+    <ui:define name="contentCenter">
+        <h:panelGrid columns="1" width="100%"> 
+            <p:panel header="Edición de usuario: " style="width:100%" id="panelFiltros">
+                <a4j:outputPanel id="panelResultado" >
+                    <h:panelGrid columns="6">
+                        <h:outputText value="Nombre de usuario:"/>
+                        <h:inputText value="#{nuevaCapacitacionDataManager.usuarioEdicion.nomusr}"/>
+                        <h:outputText value="Contraseña:"/>
+                        <h:inputText value="#{nuevaCapacitacionDataManager.usuarioEdicion.pasusr}"/>
+                        <h:outputText value="Rol:"/>
+                        <h:selectOneMenu value="#{nuevaCapacitacionDataManager.usuarioEdicion.idRol}" required="true">
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaPermisos}" />
+                        </h:selectOneMenu> 
+                    </h:panelGrid>
+
+            </a4j:outputPanel>
+                
+            </p:panel>
+
+            
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

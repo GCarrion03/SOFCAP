@@ -1,0 +1,51 @@
+1. Using a filter to set IE compatibility mode
+Under this, we can have a filter for each response which will set IE property, so that it will emulate the request as it is working with IE 7. Since most of the rich faces components work without any problem, this will be a good solution if you are already having a filter in your application and add the below lines in the doFilter() code for the response object.
+
+response.setHeader("X-UA-Compatible", "IE=EmulateIE7");
+
+If you are implementing this as a new filter, then we have to configure this filter in web.xml as below for all the responses. Say your filter name is IE7Filter.
+
+<filter>
+<filter-name>IE7Filter</filter-name>
+<filter-class>com.xxxx.IE7Filter</filter-class>
+</filter>
+<filter-mapping>
+<filter-name>IE7Filter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+2. Using tag settings in your html/jsp file.
+Using this solution, we can add a meta tag in your html/jsp file which will do the same job as above filter functionality. But the downside is that, you have to add this meta tag in all of your html/jsp files. If you are using facelets, then the changes are simple as you need to add the tag only in the main template of your project.
+Below is the required tag.
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+
+
+For this solution to work, this tag must be the first tag after the tag. But using Richfaces, it adds its own css and script tags when a page is finally rendered. In order to tweak this, we will need to add the below setting in web.xml, so that the meta tag will be placed right after the head tag.
+
+
+<context-param>
+<param-name>org.ajax4jsf.COMPRESS_SCRIPT</param-name>
+<param-value>false</param-value>
+</context-param>
+
+<context-param>
+<param-name>org.richfaces.LoadScriptStrategy</param-name>
+<param-value>NONE</param-value>
+</context-param>
+
+<context-param>
+<param-name>org.richfaces.LoadStyleStrategy</param-name>
+<param-value>NONE</param-value>
+</context-param>
+
+<context-param>
+<param-name>org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION</param-name>
+<param-value>true</param-value>
+</context-param>
+
+
+Basically, these settings prevent Richfaces to alter the settings of meta tags, so that our meta tag will be placed in the correct location.
+
+

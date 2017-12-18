@@ -1,0 +1,182 @@
+{
+   "backup": {
+      "_signature": "w5crwf2EtMS6bUT/dEfKCDrXk931d40mxIdFpfqI7Ow=",
+      "_version": 4,
+      "extensions": {
+         "ids": [ "ahfgeienlihckogmohjhadlkjgocpleb" ]
+      }
+   },
+   "browser": {
+      "check_default_browser": false,
+      "last_known_google_url": "http://www.google.com.ec/",
+      "last_prompted_google_url": "http://www.google.com.ec/",
+      "ntp": {
+         "theme_promo_remaining": -2
+      },
+      "window_placement": {
+         "bottom": 860,
+         "left": 10,
+         "maximized": true,
+         "right": 955,
+         "top": 0,
+         "work_area_bottom": 860,
+         "work_area_left": 0,
+         "work_area_right": 1440,
+         "work_area_top": 0
+      }
+   },
+   "countryid_at_install": 21843,
+   "default_apps_install_state": 2,
+   "default_search_provider": {
+      "enabled": true,
+      "encodings": "UTF-8",
+      "icon_url": "http://www.google.com/favicon.ico",
+      "id": "2",
+      "instant_url": "{google:baseURL}webhp?{google:RLZ}sourceid=chrome-instant&ie={inputEncoding}{google:instantEnabledParameter}{searchTerms}",
+      "keyword": "google.com.ec",
+      "name": "Google",
+      "prepopulate_id": "1",
+      "search_url": "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:acceptedSuggestion}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}sourceid=chrome&ie={inputEncoding}",
+      "suggest_url": "{google:baseSuggestURL}search?{google:searchFieldtrialParameter}client=chrome&hl={language}&q={searchTerms}"
+   },
+   "dns_prefetching": {
+      "host_referral_list": [ 2 ],
+      "startup_list": [ 1 ]
+   },
+   "download": {
+      "directory_upgrade": true,
+      "extensions_to_open": ""
+   },
+   "extensions": {
+      "autoupdate": {
+         "next_check": "12996084982208631"
+      },
+      "chrome_url_overrides": {
+         "bookmarks": [ "chrome-extension://eemcgdkfndhakfknompkggombfjjjeno/main.html" ]
+      },
+      "settings": {
+         "ahfgeienlihckogmohjhadlkjgocpleb": {
+            "active_permissions": {
+               "api": [ "appNotifications", "management", "webstorePrivate" ]
+            },
+            "app_launcher_ordinal": "n",
+            "page_ordinal": "n"
+         }
+      }
+   },
+   "http_throttling": {
+      "enabled": false
+   },
+   "net": {
+      "http_server_properties": {
+         "servers": {
+            "www.google.com:443": {
+               "settings": {
+                  "4": 100,
+                  "5": 10
+               },
+               "supports_spdy": true
+            }
+         },
+         "version": 1
+      }
+   },
+   "network_profile": {
+      "last_warning_time": "1351610946",
+      "warnings_left": 1
+   },
+   "ntp": {
+      "alt_logo_resource_server": "https://www.google.com/support/chrome/bin/topic/30248/inproduct",
+      "app_page_names": [ "Aplicaciones" ],
+      "pinned_urls": {
+         "af4775052a19379b5cfb577f90adaf0d": {
+            "direction": "ltr",
+            "index": 0,
+            "title": "PortableApps.com - Portable software for USB drives",
+            "url": "http://portableapps.com/"
+         }
+      },
+      "pref_version": 3,
+      "promo_build": 2,
+      "promo_resource_cache_update": "1351610768.547195",
+      "shown_sections": 1,
+      "web_resource_cache_update": "1289679884.902772",
+      "webstore_last_promo_id": "1335115"
+   },
+   "plugins": {
+      "enabled_internal_pdf3": true,
+      "enabled_nacl": true,
+      "last_internal_directory": "\\\\pc-7802491\\Users\\gcarrion\\Documents\\Instaladores\\Navegadores\\GoogleChromePortable\\App\\Chrome-bin\\22.0.1229.94",
+      "migrated_to_pepper_flash": true,
+      "plugins_list": [ {
+         "enabled": true,
+         "name": "Shockwave Flash",
+         "path": "\\\\pc-7802491\\Users\\gcarrion\\Documents\\Instaladores\\Navegadores\\GoogleChromePortable\\App\\Chrome-bin\\22.0.1229.94\\PepperFlash\\pepflashplayer.dll",
+         "version": "11.4.31.110"
+      }, {
+         "enabled": true,
+         "name": "Flash"
+      }, {
+         "enabled": true,
+         "name": "Chrome Remote Desktop Viewer",
+         "path": "internal-remoting-viewer",
+         "version": ""
+      }, {
+         "enabled": true,
+         "name": "Chrome Remote Desktop Viewer"
+      }, {
+         "enabled": true,
+         "name": "Native Client",
+         "path": "\\\\pc-7802491\\Users\\gcarrion\\Documents\\Instaladores\\Navegadores\\GoogleChromePortable\\App\\Chrome-bin\\22.0.1229.94\\ppGoogleNaClPluginChrome.dll",
+         "version": ""
+      }, {
+         "enabled": true,
+         "name": "Native Client"
+      }, {
+         "enabled": true,
+         "name": "Chrome PDF Viewer",
+         "path": "\\\\pc-7802491\\Users\\gcarrion\\Documents\\Instaladores\\Navegadores\\GoogleChromePortable\\App\\Chrome-bin\\22.0.1229.94\\pdf.dll",
+         "version": ""
+      }, {
+         "enabled": true,
+         "name": "Chrome PDF Viewer"
+      }, {
+         "enabled": true,
+         "name": "Adobe Acrobat",
+         "path": "C:\\Program Files (x86)\\Adobe\\Reader 10.0\\Reader\\Browser\\nppdf32.dll",
+         "version": "10.1.4.38"
+      }, {
+         "enabled": false,
+         "name": "Adobe Acrobat"
+      }, {
+         "enabled": true,
+         "name": "NVIDIA 3D Vision",
+         "path": "C:\\Program Files (x86)\\NVIDIA Corporation\\3D Vision\\npnv3dv.dll",
+         "version": "7.17.12.6742"
+      }, {
+         "enabled": true,
+         "name": "NVIDIA 3D VISION",
+         "path": "C:\\Program Files (x86)\\NVIDIA Corporation\\3D Vision\\npnv3dvstreaming.dll",
+         "version": "7.17.12.6742"
+      }, {
+         "enabled": true,
+         "name": "NVIDIA 3D"
+      } ]
+   },
+   "profile": {
+      "avatar_index": 0,
+      "content_settings": {
+         "clear_on_exit_migrated": true,
+         "pref_version": 1
+      },
+      "exited_cleanly": false,
+      "name": "Primer usuario"
+   },
+   "session": {
+      "restore_on_startup_migrated": true
+   },
+   "tabs": {
+      "use_compact_navigation_bar": false,
+      "use_vertical_tabs": false
+   }
+}

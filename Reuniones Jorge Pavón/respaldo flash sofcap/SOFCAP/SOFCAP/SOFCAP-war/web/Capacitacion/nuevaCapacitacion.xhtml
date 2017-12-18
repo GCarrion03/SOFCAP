@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="contentCenter">
+        <h:outputLabel value="Creación de nueva capacitación:"></h:outputLabel>
+        <p:panel header="capacitaciones planificadas">
+            <h:outputText value="seleccione una de las capacitaciones disponibles para este período:  " rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion!='n1'}"/>
+            <h:selectOneMenu value="#{nuevaCapacitacionDataManager.curso.id_plantilla}" disabled="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}" rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion!='n1'}">
+                <f:selectItem itemLabel="Seleccione una capacitación" itemValue="0"/>
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaPlanificacionCursos}" />
+                <a4j:ajax event="change" render="pnldatosplanif btnOpt"
+                          execute="@this"
+                          listener="#{nuevaCapacitacionController.cargarDatosCapacitacion}" />
+            </h:selectOneMenu>
+            <a4j:outputPanel id="pnldatosplanif" >
+                <ui:include src="panelPlanificacion.xhtml" />
+                <h:panelGrid columns="4" id="datosCurso" rendered="#{nuevaCapacitacionDataManager.planificacionCurso!=null and  nuevaCapacitacionDataManager.pasoFlujo!='carCap'}">
+                    <h:outputText value="Instructor:"/>
+                    <h:selectOneMenu id="cmbInstructor" value="#{nuevaCapacitacionDataManager.curso.codinstr}" disabled="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}">
+                        <f:selectItems value="#{nuevaCapacitacionDataManager.listaInstructores}" />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="Centro de entrenamiento:"/>
+                    <h:selectOneMenu
+                        disabled="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}"
+                        required="true" id="centEnt" value="#{nuevaCapacitacionDataManager.curso.codcenent}">
+                        <f:selectItems value="#{nuevaCapacitacionDataManager.listaCentroEntren}" />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="Turno:"/>
+                    <h:selectOneMenu id="turnos" value="#{nuevaCapacitacionDataManager.curso.codTurno}" disabled="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}"
+                                     >
+                        <f:selectItems value="#{nuevaCapacitacionDataManager.listaTurnos}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="Fecha de inicio:"/>
+                    <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaInicio}" datePattern="dd/MM/yy HH:mm" 
+                                   showApplyButton="#{true}" locale="es"  zindex="1000"/>
+                    <h:outputText value="Fecha de fin:"/>
+                    <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaFin}" datePattern="dd/MM/yy HH:mm"
+                                   showApplyButton="#{true}" locale="es" zindex="1000"/>
+
+                </h:panelGrid>
+
+            </a4j:outputPanel>
+            <fieldset>
+            </fieldset>
+        </p:panel>
+        <p:panel header="Asistentes:">
+            <a4j:outputPanel id="tablaAsistentes" >
+                <p:dataTable value="#{nuevaCapacitacionDataManager.curso.plantillaCurso.plaasisCollection}"
+                             rendered="#{!empty nuevaCapacitacionDataManager.curso.plantillaCurso.plaasisCollection}"
+                             var="plaAsi"> 
+                    <p:column filterBy="#{plaAsi.capacitado.codgm}" headerText="Código" 
+                              filterMatchMode="contains">
+                        <h:outputText value="#{plaAsi.capacitado.codgm}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Cédula"/>
+                        </f:facet>
+                        <h:outputText value="#{plaAsi.capacitado.cedcapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{plaAsi.capacitado.nomcapac}" headerText="Nombre" 
+                              filterMatchMode="contains">
+                        <h:outputText value="#{plaAsi.capacitado.nomcapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{plaAsi.capacitado.apecapac}" headerText="Apellidos" 
+                              filterMatchMode="contains">
+                        <h:outputText value="#{plaAsi.capacitado.apecapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{plaAsi.capacitado.ceco}" headerText="CECO" 
+                              filterMatchMode="contains">
+                        <h:outputText value="#{plaAsi.capacitado.ceco}"/>
+                    </p:column>        
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Sección"/>
+                        </f:facet>
+                        <h:outputText value="#{plaAsi.capacitado. seccion}"/>
+                    </p:column>
+                    <p:column  rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}">
+                        <f:facet name="header">
+                            <h:outputLabel value="Evaluación nivel 3"/>
+                        </f:facet>
+                        <a4j:commandButton value="Evaluar" rendered="#{plaAsi.asistencia.resN3==null}"
+                                           render="panelN3" oncomplete="#{rich:component('mpRn3')}.show();" execute="@this" >
+                            <f:setPropertyActionListener value="#{plaAsi}"
+                                                         target="#{nuevaCapacitacionController. asistenteEvaluado}" />
+                        </a4j:commandButton>
+                        <h:outputText value="#{plaAsi.asistencia.resN3}" rendered="#{plaAsi.asistencia.resN3!=null}"/>
+                    </p:column>
+
+
+                </p:dataTable>
+            </a4j:outputPanel>
+        </p:panel>
+
+
+        <h:panelGrid columns="5" id="btnOpt">
+            <h:panelGroup layout="block" styleClass="botonD" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo=='carCap' and nuevaCapacitacionDataManager.planificacionCurso!=null}">
+                <a4j:commandLink value="Seleccionar capacitados" styleClass="ADDPLA" action="#{nuevaCapacitacionController.cargarCapacitados}"
+                                 render="tablaCapacitadosOpt" oncomplete="#{rich:component('mpcapOpt')}.show();"
+                                 />
+
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo=='carCap' and nuevaCapacitacionDataManager.planificacionCurso!=null}">
+                <a4j:commandLink value="Guardar" action="#{nuevaCapacitacionController.guardarPostulantes}" styleClass="SAVE" execute="@form"
+            />
+            </h:panelGroup>
+            
+            <h:panelGroup layout="block" styleClass="botonD" rendered="#{nuevaCapacitacionDataManager.paso=='editar' and nuevaCapacitacionDataManager.pasoCapacitacion!='n1'
+                                           and nuevaCapacitacionDataManager.pasoFlujo!='carCap' and nuevaCapacitacionDataManager.planificacionCurso!=null}">
+                <a4j:commandLink value="añadir asistente" action="#{nuevaCapacitacionController.nuevoCapacitado}"
+                               render="tablaCapacitados panelPopCap" styleClass="ADDASI" oncomplete="#{rich:component('mpcap')}.show();" execute="@this"
+                               />
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo!='carCap'and nuevaCapacitacionDataManager.planificacionCurso!=null}">
+                <a4j:commandLink value="Guardar curso" styleClass="SAVE" action="#{nuevaCapacitacionController.guardarCurso}" execute="@form"  
+                               />
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+            </h:panelGroup>
+
+            
+            
+            <a4j:commandButton value="Realizar evaluacion nivel 1"
+                               action="#{nuevaCapacitacionController.asignarPreguntasNivel1}"
+                               render="panelVisualn1" oncomplete="#{rich:component('mpn1')}.show();" execute="@this"
+                               rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}" style="visibility: hidden;"/>
+            <a4j:commandButton value="Generar reporte de curso"
+                               render="panelVisualRepn1" oncomplete="#{rich:component('mpRn1')}.show();" execute="@this"
+                               action="#{nuevaCapacitacionController.generarReporteNivel1}"
+                               rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion=='n1'}" style="visibility: hidden;"/>
+
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="modal">
+        <ui:include src="modalCapacitado.xhtml" />
+        <ui:include src="modalCapacitadoOpt.xhtml" />
+
+
+        <rich:popupPanel header="Ingreso de nuevo asistente" autosized="true"
+                         moveable="false" id="mp" width="400">
+            <f:facet name="controls">
+                <h:outputLink value="#" onclick="#{rich:component('mp')}.hide();">
+                    <h:graphicImage library="images/icons" name="closebar.png"
+                                    style="border:0px" id="hidelink" />
+                </h:outputLink>
+            </f:facet>
+            <h:form>
+                <h:panelGroup layout="block" id="panelVisual">
+                    <p:panel>
+
+                    </p:panel>
+                </h:panelGroup>
+                <center>
+                    <h:panelGrid>
+                        <a4j:commandButton value="Aceptar"
+                                           action="#{nuevaCapacitacionController.anadirCapacitado}"
+                                           onclick="#{rich:component('mp')}.hide()" execute="cedulaCapac"
+                                           render="tablaAsistentes"/>
+                    </h:panelGrid>
+                </center>
+            </h:form>
+        </rich:popupPanel>
+        <rich:popupPanel header="Añadir evaluación nivel 1:" autosized="true"
+                         moveable="false" id="mpn1" width="400">
+            <f:facet name="controls">
+                <h:outputLink value="#" onclick="#{rich:component('mpn1')}.hide();">
+                    <h:graphicImage library="images/icons" name="closebar.png"
+                                    style="border:0px" id="hidelinkn1" />
+                </h:outputLink>
+            </f:facet>
+            <h:form>
+                <h:outputText value="Instructor:"/>
+                <h:selectOneMenu id="cmbInstructor" value="#{nuevaCapacitacionDataManager.curso.codinstr}">
+                    <f:selectItems value="#{nuevaCapacitacionDataManager.listaInstructores}" />
+                </h:selectOneMenu>
+                <h:panelGroup layout="block" id="panelVisualn1">
+                    <rich:dataTable id="tblN1" value="#{nuevaCapacitacionDataManager.preguntas}"
+                                    rendered="#{!empty nuevaCapacitacionDataManager.preguntas}" var="preguntan1"
+                                    rowKeyVar="numrow">
+                        <rich:column>
+                            <h:outputText value="#{preguntan1.cabprg}"/>
+                        </rich:column>
+                        <rich:column>
+                            <h:selectOneRadio layout="lineDirection" value="#{preguntan1.respuestaAux}">
+                                <f:selectItems value="#{preguntan1.respuestaCollection}" var="opcionesRespuesta" itemValue="#{opcionesRespuesta.codres}"
+                                               itemLabel="#{opcionesRespuesta.desres}"/>
+                            </h:selectOneRadio>
+                        </rich:column>
+                    </rich:dataTable>
+                    <h:outputText
+                        value="Observaciones"
+                        />
+                    <h:inputTextarea/>
+                    <h:outputText
+                        value="Sugerencias"
+                        />
+                    <h:inputTextarea/>
+                </h:panelGroup>
+                <center>
+                    <h:panelGrid columns="2">
+                        <a4j:commandButton value="Aceptar"
+                                           action="#{nuevaCapacitacionController.guardarRespuestasNivel1}"
+                                           onclick="#{rich:component('mpn1')}.hide()" execute="tblN1"
+                                           render="tablaAsistentes"/>
+                        <a4j:commandButton value="Cerrar"
+                                           onclick="#{rich:component('mpn1')}.hide()" execute="tblN1"
+                                           render="tablaAsistentes"/>
+
+                    </h:panelGrid>
+                </center>
+            </h:form>
+        </rich:popupPanel>
+        <rich:popupPanel header="Reporte evaluación nivel 1:" autosized="true"
+                         moveable="false" id="mpRn1" width="800">
+            <f:facet name="controls">
+                <h:outputLink value="#" onclick="#{rich:component('mpRn1')}.hide();">
+                    <h:graphicImage library="images/icons" name="closebar.png"
+                                    style="border:0px" id="hidelinkRn1" />
+                </h:outputLink>
+            </f:facet>
+            <h:form>
+
+                <h:panelGroup layout="block" id="panelVisualRepn1">
+                    <p:dataTable value="#{nuevaCapacitacionDataManager.preguntas}" var="pregunta">
+                        <p:column headerText="Descripción Pregunta:">
+                            <h:outputText value="#{pregunta.cabprg}"/>
+                        </p:column>
+                        <p:column headerText="Media:">
+                            <h:outputText value="#{pregunta.media}"/>
+                        </p:column>
+                        <p:column headerText="Porcentaje:">
+                            <h:outputText value="#{pregunta.porcentaje}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:panel>
+
+                        <h:panelGrid border="2" columns="4">
+                            <h:outputText
+                                value="Perspectiva general de la capacitación:"
+                                />
+                            <h:outputText/>
+                            <h:outputText/>
+                            <h:outputText value="98%"/>
+
+                            <h:outputText
+                                value="Son adecuadas las instalaciones y materiales utilizados en la capacitación:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="Se logra mantener el interés en el tema durante la capacitación.:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+
+                            <h:outputText
+                                value="Comprensión del participante:"
+                                />
+                            <h:outputText/>
+                            <h:outputText/>
+                            <h:outputText value="98%"/>
+
+                            <h:outputText
+                                value="Considera que el contenido del tema es relevante para su función laboral:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="Se utilizó técnicas para fomentar el razonamiento y la comprensión del contenido del tema:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+
+                            <h:outputText
+                                value="Evaluación del facilitador:"
+                                />
+                            <h:outputText/>
+                            <h:outputText/>
+                            <h:outputText value="98%"/>
+
+                            <h:outputText
+                                value="El facilitador está dispuesto a retroalimentar las dificultades observadas en los participantes:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="El facilitador demuestra amabilidad en el trato con los participantes:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="El facilitador relaciona el tema con las aplicaciones que podría tener:"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="El instructor domina el tema, lo que permite un buen aprendizaje :"
+                                />
+                            <h:outputText value="150"/>
+                            <h:outputText value="3.699"/>
+                            <h:outputText/>
+                            <h:outputText
+                                value="Observaciones"
+                                />
+                            <h:inputTextarea/>
+                            <h:outputText
+                                value="Sugerencias"
+                                />
+                            <h:inputTextarea/>
+                            <h:outputText
+                                value="Total"
+                                />
+                            <h:outputLabel value="2,8"/>
+                            <h:outputLabel value="100%"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGroup>
+                <center>
+                    <h:panelGrid>
+                        <a4j:commandButton value="Aceptar"
+                                           action="#{nuevaCapacitacionController.anadirCapacitado}"
+                                           onclick="#{rich:component('mp')}.hide()" execute="cedulaCapac"
+                                           render="tablaAsistentes"/>
+                        <a4j:commandButton value="Imprimir"
+                                           onclick="#{rich:component('mp')}.hide()" execute="cedulaCapac"
+                                           render="tablaAsistentes"/>
+                    </h:panelGrid>
+                </center>
+            </h:form>
+        </rich:popupPanel>
+
+        <rich:popupPanel header="Evaluación:" autosized="true"
+                         moveable="false" id="mpRn3" width="400">
+            <f:facet name="controls">
+                <h:outputLink value="#" onclick="#{rich:component('mpRn3')}.hide();">
+                    <h:graphicImage library="images/icons" name="closebar.png"
+                                    style="border:0px" id="hidelinkRn3" />
+                </h:outputLink>
+            </f:facet>
+            <h:form>
+                <!--                             <h:graphicImage library="images" name="ajaxloadingbar.gif" width="200px"/>-->
+                <h:panelGrid columns="2" id="panelN3">
+
+                    <h:outputText value="Ingrese el resultado de la nivel evaluación nivel 3 para #{nuevaCapacitacionController.asistenteEvaluado.capacitado.nomcapac} #{nuevaCapacitacionController.asistenteEvaluado.capacitado.apecapac}:"/>
+                    <h:inputText value="#{nuevaCapacitacionController.asistenteEvaluado.asistencia.resN3}"/>
+
+                </h:panelGrid>
+                <center>
+                    <h:panelGrid width="50%" columns="2">
+
+                        <a4j:commandButton value="Guardar" action="#{nuevaCapacitacionController.guardarEvaluacionN3}"
+                                           oncomplete="#{rich:component('mpRn3')}.hide();" style="width:80px"
+                                           render="tablaAsistentes"/>
+                        <h:commandButton value="Salir" onclick="#{rich:component('mpRn3')}.hide();" style="width:50px"/>
+                    </h:panelGrid>
+                </center>
+            </h:form>
+        </rich:popupPanel>
+    </ui:define>
+
+</ui:composition>
+

@@ -1,0 +1,200 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="header">
+    <rich:toolbarGroup location="right">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+                </h:panelGroup>
+            </rich:toolbarGroup>
+        </ui:define>
+    
+    <ui:define name="contentCenter">
+        <style>
+            .colorrojotd{
+                background-color: #FFCCCC;
+
+            }
+            .colorverdetd{
+                background-color: #CCFFCC;
+
+            }
+        </style>
+        <h:panelGrid columns="7" width="100%">
+            <h:outputLabel value="Turno:"/>
+            <h:selectManyListbox style="height:50px;" value="#{nuevaCapacitacionDataManager.plantillaReporteAsistencia.colTurno}">
+                <f:selectItem itemLabel="Seleccione" />
+                <f:selectItem itemLabel="Turno 1" itemValue="1"/>
+                <f:selectItem itemLabel="Turno 2" itemValue="2"/>
+                <f:selectItem itemLabel="Turno 3" itemValue="3"/>
+            </h:selectManyListbox>
+            <h:outputLabel value="Tema:"/>
+            <h:selectManyListbox id="temas" style="height:50px;" value="#{nuevaCapacitacionDataManager.plantillaReporteAsistencia.colTema}">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaTemas}" />
+            </h:selectManyListbox>
+            <h:outputLabel value="CECO:"/>
+            <h:selectManyListbox id="cecos" style="height:50px;" value="#{nuevaCapacitacionDataManager.plantillaReporteAsistencia.colCeco}" required="false">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaCecos}" />
+            </h:selectManyListbox>
+            <h:panelGrid columns="1" cellpadding="0" cellspacing="0"> 
+            <h:outputText value="Fecha de inicio:"/>
+            <rich:calendar value="#{nuevaCapacitacionDataManager.plantillaReporteAsistencia.fechaInicio}" datePattern="dd/MM/yy HH:mm"
+                                   showApplyButton="#{true}" locale="es"  zindex="1000"
+                                   direction="bottomLeft"/>
+                    <h:outputText value="Fecha de fin:"/>
+                    <rich:calendar value="#{nuevaCapacitacionDataManager.plantillaReporteAsistencia.fechaFin}" datePattern="dd/MM/yy HH:mm"
+                                   showApplyButton="#{true}" locale="es" zindex="1000" direction="bottomLeft"
+                                   />
+            </h:panelGrid>
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Generar Reporte" styleClass="REPASI"  action="#{nuevaCapacitacionController.generarReportePlanificadoAsistenciaNoLider}" render="panelResultado"/>
+
+            </h:panelGroup>
+
+        </h:panelGrid>
+
+        <center>
+            <a4j:outputPanel id="panelResultado">
+                <div style="height:500px;overflow-y:scroll;">
+                <rich:dataTable value="#{nuevaCapacitacionDataManager.collReporteAsistenciaNoLider}" 
+                                rowKeyVar="num" style="width: 100%" var="asistentes">
+                    
+                    <rich:column>
+                        <a4j:outputPanel id="panelExp"
+                                rendered="#{asistentes.planificados>0}">
+                                <center>
+                                        <a4j:commandLink style="color: white"
+                                                actionListener="#{nuevaCapacitacionController.expandirAsistentesNoLider(asistentes)}"
+                                                execute="@this" render="panelResultado"
+                                                rendered="#{!asistentes.selected}">
+                                                <h:graphicImage
+                                                        value="#{resource['images/icons:desplegar.gif']}"
+                                                        style="cursor:pointer; border:0;">
+                                                </h:graphicImage>
+                                        </a4j:commandLink>
+                                        <a4j:commandLink style="color: white"
+                                                actionListener="#{nuevaCapacitacionController.contraerAsistentesNoLider(asistentes)}"
+                                                execute="@this" render="panelResultado"
+                                                rendered="#{asistentes.selected}">
+                                                <h:graphicImage value="#{resource['images/icons:plegar.gif']}"
+                                                        style="cursor:pointer; border:0;">
+                                                </h:graphicImage>
+                                        </a4j:commandLink>
+                                </center>
+                        </a4j:outputPanel>
+                    </rich:column>
+                    <rich:column> 
+                        <f:facet name="header">
+                            <h:outputText value="Número"/>
+                        </f:facet>
+                        <h:outputText value="#{num+1}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Tema"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.nomtema}" style="width: 100%;"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha Inicio"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.fechaInicio}">
+                            <f:convertDateTime type="date" dateStyle="short"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha Fin"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.fechaFin}">
+                            <f:convertDateTime type="date" dateStyle="short"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Centro de costos"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.ceco}"/>
+                    </rich:column>
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Turno"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.turno}"/>
+                    </rich:column>
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Nro. Planificados"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.planificados}"/>
+                    </rich:column>
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Nro. Asistentes"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.asistentes}"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Indice de asistencia"/>
+                        </f:facet>
+                        <h:outputText value="#{asistentes.asistentes/asistentes.planificados}">
+                            <f:convertNumber type="percent"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column breakRowBefore="true" colspan="11" id="rwExp"
+					rendered="#{asistentes.selected}">
+					<center>
+                                            <rich:dataTable id="subtblCapac" rowClass="#{plaasis.capacitado.seleccionado?'colorverdetd':'colorrojotd'}"
+							value="#{asistentes.asistentesPlanificacionCol}"
+							var="plaasis" rowKeyVar="numRow1" status="no"
+							columnsWidth="30%,35%,35%"
+							rendered="#{asistentes.selected}"
+                                                        style="width:90%" rowClasses="subtableBodyNvl1">
+                                                    <rich:column >
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Código"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{plaasis.capacitado.codgm}"/>
+                                                    </rich:column>
+                                                    <rich:column >
+                                                        <f:facet name="header">
+                                                            <h:outputText value="Nombres"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{plaasis.capacitado.nomcapac}"/>
+                                                    </rich:column>
+                                                    <rich:column>
+                                                         <f:facet name="header">
+                                                            <h:outputText value="Apellidos"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{plaasis.capacitado.apecapac}"/>
+                                                    </rich:column>
+                                                    <rich:column>
+                                                         <f:facet name="header">
+                                                            <h:outputText value="Evaluación nivel 2"/>
+                                                        </f:facet>
+                                                        <h:outputText rendered="#{!empty plaasis.asistencia and plaasis.asistencia!=null}" value="#{plaasis.asistencia.resN3}"/>
+                                                    </rich:column>
+                                                </rich:dataTable>
+                                        </center>
+                    </rich:column>
+                </rich:dataTable>
+                    </div>
+            </a4j:outputPanel>
+        </center>
+    </ui:define>
+
+</ui:composition>

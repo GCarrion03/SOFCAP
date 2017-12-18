@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout1.xhtml">
+     <ui:param name="form"
+	value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+	value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmCapacitacion" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="header">
+        <h:panelGrid columns="5" id="btnOpt" cellpadding="0" cellspacing="0">
+            <h:panelGroup layout="block" styleClass="botonD">
+                 <a4j:commandLink styleClass="EDIT" value="Editar" render="panelTema pnlajaxpicklist btnOpt" execute="panelTema"  action="#{nuevaCapacitacionController.editarTemas}" rendered="#{nuevaCapacitacionDataManager.paso!='editar' and nuevaCapacitacionDataManager.paso!='nuevo'}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD">
+                 <a4j:commandLink styleClass="ADDTHEME" value="Añadir" render="panelTema btnOpt" execute="panelTema"  action="#{nuevaCapacitacionController.anadirTemas}" rendered="#{nuevaCapacitacionDataManager.paso!='editar' and nuevaCapacitacionDataManager.paso!='nuevo'}"/>
+            </h:panelGroup>
+            
+             <h:panelGroup layout="block" styleClass="botonD">
+                 <a4j:commandLink styleClass="SAVE" value="Guardar" render="panelTema btnOpt" execute="panelTema"  action="#{nuevaCapacitacionController.guardarAnadirTemas}" rendered="#{nuevaCapacitacionDataManager.paso=='nuevo'}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD">
+                 <a4j:commandLink styleClass="SAVE" value="Guardar" render="panelTema pnlajaxpicklist btnOpt" execute="panelTema"  action="#{nuevaCapacitacionController.guardarEditarTemas}" rendered="#{nuevaCapacitacionDataManager.paso=='editar'}" />
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="botonD">
+                 <a4j:commandLink styleClass="CANCEL" value="Cancelar" render="panelTema pnlajaxpicklist btnOpt" execute="panelTema"  action="#{nuevaCapacitacionController.cancelarEditarTemas}" rendered="#{nuevaCapacitacionDataManager.paso=='editar' or nuevaCapacitacionDataManager.paso=='nuevo' }" />
+            </h:panelGroup>
+        </h:panelGrid>
+            <rich:toolbarGroup location="right">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+                </h:panelGroup>
+            </rich:toolbarGroup>
+        
+    </ui:define>
+    <ui:define name="contentCenter">
+        <h:panelGrid columns="7" id="panelTema">
+        <h:outputText value="Principio GMS:"/>
+            <h:selectOneMenu value="#{nuevaCapacitacionDataManager.codigoPrincipio}"
+                             disabled="#{nuevaCapacitacionDataManager.paso!='visualizar'}">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaPrincipios}" />
+                <a4j:ajax event="change" render="temas"
+                          execute="@this"
+                          listener="#{nuevaCapacitacionController.cargarTemas}" />
+            </h:selectOneMenu>
+
+            <h:outputText value="Tema:"/>
+            <h:selectOneMenu id="temas" value="#{nuevaCapacitacionDataManager.planificacionCurso.codtema}"
+                             rendered="#{nuevaCapacitacionDataManager.paso=='visualizar'}">
+                <f:selectItems  value="#{nuevaCapacitacionDataManager.listaTemas}" />
+                <a4j:ajax event="change" render="pnlajaxpicklist"
+                          execute="@this"
+                          listener="#{nuevaCapacitacionController.cargarGruposAsistentes}" />
+
+            </h:selectOneMenu>
+            <h:inputText value="#{nuevaCapacitacionDataManager.temaEdicion.nomtema}" size="50" rendered="#{nuevaCapacitacionDataManager.paso!='visualizar'}"/>            
+           
+        </h:panelGrid>
+        <a4j:outputPanel id="pnlajaxpicklist">
+        <rich:panel style="width:560px;" id="pnlpicklist" rendered="#{!empty nuevaCapacitacionDataManager.grupoCapDispCol or !empty nuevaCapacitacionDataManager.grupoCapAsigCol}">
+            
+            
+            <center>
+            <f:facet name="header">
+                <h:outputText value="Seleccione los grupos que pueden ser planificados para este tema:"></h:outputText>
+            </f:facet>
+            <h:panelGrid columns="3">
+            <rich:dataTable id="tblN1" value="#{nuevaCapacitacionDataManager.grupoCapDispCol}"
+                                    var="grupoCap"
+                                    rowKeyVar="numrow">
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Grupos disponibles:"></h:outputText>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{grupoCap.selected}" disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                            <h:outputText value="#{grupoCap.desgrupo}"/>
+                        </rich:column>
+             </rich:dataTable>
+                <h:panelGrid columns="1">
+                    <a4j:commandButton id="anadirtodos" value="Añadir todos" render="pnlpicklist" execute="pnlpicklist"  action="#{nuevaCapacitacionController.anadirTodosGrupos}" style="width:100px;" disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                    <a4j:commandButton id="anadir" value="Añadir" render="pnlpicklist" execute="pnlpicklist"  action="#{nuevaCapacitacionController.anadirGrupos}" style="width:100px;" disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                    <a4j:commandButton id="remover" value="Remover" render="pnlpicklist" execute="pnlpicklist"  action="#{nuevaCapacitacionController.removerGrupos}" style="width:100px;" disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                    <a4j:commandButton id="removertodos" value="Remover todos" render="pnlpicklist" execute="pnlpicklist"  action="#{nuevaCapacitacionController.removerTodosGrupos}" style="width:100px;"  disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                </h:panelGrid>
+            <rich:dataTable id="tblN2" value="#{nuevaCapacitacionDataManager.grupoCapAsigCol}"
+                                     var="grupoCap"
+                                    rowKeyVar="numrow">
+                        <rich:column>
+                            <f:facet name="header">
+                                <h:outputText value="Grupos asignados:"></h:outputText>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{grupoCap.selected}" disabled="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                            <h:outputText value="#{grupoCap.desgrupo}"/>
+                        </rich:column>
+             </rich:dataTable>
+                </h:panelGrid>
+                </center>
+        </rich:panel>
+            </a4j:outputPanel>
+        
+
+            
+        
+    </ui:define>
+</ui:composition>

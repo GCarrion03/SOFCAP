@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<a4j:status id="statusAjax" onstart="#{rich:component('statusDialog')}.show()" onstop="#{rich:component('statusDialog')}.hide()"/>
+	<p:ajaxStatus id="status1" onstart="#{rich:component('statusDialog')}.show()" oncomplete="#{rich:component('statusDialog')}.hide()"/>
+	<rich:popupPanel id="statusDialog" autosized="true" header="Procesando...">
+		<h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+	</rich:popupPanel>
+	<p:notificationBar position="bottom" effect="fade" widgetVar="messageBar">
+		<h:graphicImage library="images/icons" name="closebar.png" onclick="messageBar.hide();" style="cursor:pointer;float:right;display:block;position:relative;margin-right:30px"/>
+		<a4j:outputPanel ajaxRendered="true"><p:messages /></a4j:outputPanel>
+	</p:notificationBar>
+	<a4j:outputPanel ajaxRendered="true">
+		<script type="text/javascript">
+			jQuery(document).ready(function (){
+				#{rich:component('statusDialog')}.hide();
+				if(#{!empty facesContext.maximumSeverity}){
+					messageBar.show();
+				}else{
+					messageBar.hide();
+				}
+			});
+		</script>
+	</a4j:outputPanel>
+	<a4j:jsFunction name="clearDataManager" execute="@this" immediate="true" actionListener="#{controller.clearDataManager}" action="/closeFrame" rendered="#{!empty controller}"/>
+
+</ui:composition>

@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/templates/main/mainLayout.xhtml">
+
+	<ui:define name="head">
+		<h:outputStylesheet library="css" name="buttons.css"/>
+		<h:outputStylesheet library="css" name="components.css"/>
+		<style type="text/css">
+			.bodyMainPanel{overflow-y:auto; overflow-x:hidden; height:455px;}
+		</style>
+	</ui:define>
+	<ui:define name="content">
+		<rich:tabPanel rendered="false"><rich:tab header="oculto"></rich:tab></rich:tabPanel>
+		<rich:panel rendered="false"/>
+		<rich:dropDownMenu rendered="false"><rich:menuItem label="oculto"></rich:menuItem></rich:dropDownMenu>
+		<h:panelGroup style="margin:0 auto 0 auto;position:relative;top:5%;width:90%;" layout="block">
+			<rich:tabPanel binding="#{loginController.htmlTabPanel}"/>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

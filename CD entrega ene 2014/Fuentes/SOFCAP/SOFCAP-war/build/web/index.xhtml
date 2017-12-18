@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout2.xhtml">
+     <ui:param name="form"
+               value="#{menuController.form}" />
+    <ui:param name="controller"
+              value="#{menuController}" />
+    <ui:param name="idForm" value="frmMenuCap" />
+    <ui:param name="titulo" value="Autentificación" />
+
+    <ui:define name="contentCenter">
+            <a4j:outputPanel  id="pnlusr" style="position: absolute;top: 30%;left:40%;">
+<!--        <h:outputLabel value="Ingreso al sistema:"></h:outputLabel>-->
+        <fieldset>
+            <legend>Ingreso al sistema:</legend>
+            <h:panelGrid columns="2">
+                <h:outputText value="Nombre de usuario:"/>
+                <h:inputText value="#{menuDataManager.filtroUsuario.nomusr}"/>
+                <h:outputText value="Contraseña:"/>
+                <h:inputSecret value="#{menuDataManager.filtroUsuario.pasusr}"/>
+                <h:outputText/>
+                <a4j:commandButton value="Ingresar" render="pnlusr" action="#{menuController.ingresar}" style="width:100%"/>
+            </h:panelGrid>
+        </fieldset>
+        </a4j:outputPanel>
+            <h:graphicImage library="images/icons" name="LogoGM-OBB.jpg" width="100px" style="float: right;top: 80%;"/>
+        </ui:define> 
+</ui:composition>
+
+

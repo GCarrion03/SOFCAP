@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmEditHc" />
+    <ui:param name="titulo" value="Editar headcount" />
+
+    <ui:define name="header">
+        <rich:toolbarGroup location="right">
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+            </h:panelGroup>
+        </rich:toolbarGroup>
+    </ui:define>
+    <ui:define name="contentCenter">
+        <a4j:jsFunction name="renderTable" render="panelDel">
+
+        </a4j:jsFunction>
+        <table><tr> <td style="vertical-align: top;">
+                    <p:panel header="Actualización/Inserción de personas:" style="width:400px" id="panelUpdt">
+                        <h:panelGrid columns="1">
+                            <p:fileUpload style="width:200px;" id="uploaderHC" widgetVar="uploaderHC" customUI="true" label="Examinar..."  fileUploadListener="#{nuevaCapacitacionController.loadXlsPrime}"/>
+                            <p:commandButton value="Guardar" type="submit" onclick="uploaderHC.upload();" oncomplete="renderTable();"/>
+                        </h:panelGrid>
+                    </p:panel></td>
+                <td>
+                    <a4j:outputPanel id="panelDel">
+                        <p:panel header="Eliminación de personas:" style="width:930px" >
+                            <div style="height:500px;overflow-y:scroll;">
+                                <p:dataTable rendered="#{!empty nuevaCapacitacionDataManager.capacitadoCol}" 
+                                             value="#{nuevaCapacitacionDataManager.capacitadoCol}" style="width: 100%" 
+                                             var="capacitado" rowIndexVar="indexUsu">
+
+                                    <p:column headerText="Cédula:" filterBy="#{capacitado.cedcapac}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.cedcapac}" />
+                                    </p:column>
+                                    <p:column headerText="Código:" filterBy="#{capacitado.codgm}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.codgm}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombres:" filterBy="#{capacitado.nomcapac}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.nomcapac}"/>
+                                    </p:column>
+                                    <p:column headerText="Apellidos:" filterBy="#{capacitado.apecapac}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.apecapac}"/>
+                                    </p:column>
+                                    <p:column headerText="Turno:" filterBy="#{capacitado.turno}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.turno}"/>
+                                    </p:column>
+                                    <p:column headerText="Nivel:" filterBy="#{capacitado.id_Grupo}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.id_Grupo}"/>
+                                    </p:column>
+                                    <p:column headerText="Código de líder:" filterBy="#{capacitado.idlider}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.idlider}"/>
+                                    </p:column>
+                                    <p:column headerText="Líder:" filterBy="#{capacitado.lider.cargo}" 
+                                              filterMatchMode="contains">
+                                        <h:outputText value="#{capacitado.lider.cargo}"/>
+                                    </p:column>
+                                    <p:column headerText="Eliminar" style="text-align:center">
+                                        <a4j:commandLink style="color: white"
+                                                         actionListener="#{nuevaCapacitacionController.eliminarCapacitado(capacitado)}"
+                                                         execute="@this" render="panelDel"
+                                                         >
+                                            <h:graphicImage value="#{resource['images/icons/SOFCAPFLOW/16X16:DELETE.png']}"
+                                                            style="cursor:pointer; border:0;">
+                                            </h:graphicImage>
+                                        </a4j:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </p:panel>
+                    </a4j:outputPanel>
+                </td></tr></table>
+    </ui:define>
+</ui:composition>

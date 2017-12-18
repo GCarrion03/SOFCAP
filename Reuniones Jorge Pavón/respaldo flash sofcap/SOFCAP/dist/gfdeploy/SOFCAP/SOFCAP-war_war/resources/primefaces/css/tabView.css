@@ -1,0 +1,4 @@
+/* estilos propios para los tabView */
+.ui-tabs-nav li a{
+	padding:3px !important;
+}

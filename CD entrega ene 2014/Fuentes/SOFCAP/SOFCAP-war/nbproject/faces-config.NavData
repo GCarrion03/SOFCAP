@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="templates/pages/pageLayout1.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="index.jsp" x="400" y="150" zoom="false"/>
+        <Node id="templates/pages/defaultContent/appAdminMenu.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="templates/main/mainLayout.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="Capacitacion/nuevaCapacitacion.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="templates/pages/defaultContent/body.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="templates/main/header.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="templates/main/mainPanel.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="editarCapacitacion/editarCapacitacion.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="Capacitacion/buscarCapacitacion.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="templates/pages/defaultContent/bottom.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="templates/pages/defaultContent/modalOpenedWindows.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="templates/main/menu.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="Menuprincipal.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="templates/main/messages.xhtml" x="400" y="450" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

@@ -1,0 +1,36 @@
+USE [SOFCAP]
+GO
+/****** Object:  View [dbo].[reporteCIndividual]    Script Date: 06/25/2013 00:01:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER view [dbo].[reporteCIndividual]
+as
+select cp.codgm,cp.cedcapac,cp.nomcapac,cp.apecapac,tm.nomtema,count(*)conteo ,ISNULL ( max(resn3) , 0) promedio,cp.turno,tm.codtema,cp.ceco,cp.id_grupo,ld.idlider, ld.cargo 
+from capacitado cp join grupo_cap gca on cp.id_grupo=gca.id_grupo join tema_grupo tgr on gca.id_grupo=tgr.id_grupo
+left join plantilla_curso pc on tgr.codtema=pc.codtema join tema tm on tm.codtema=pc.codtema left join asistencia asi on asi.id_plantilla=pc.id_plantilla and asi.cedcapac=cp.cedcapac
+left join lider ld on ld.idlider=cp.idlider
+group by cp.codgm,tm.nomtema,cp.turno,tm.codtema,cp.ceco,cp.nomcapac,cp.apecapac,cp.cedcapac,cp.id_grupo,ld.idlider,ld.cargo;
+/**
+select cp.codgm,cp.cedcapac,cp.nomcapac,cp.apecapac,tm.nomtema,count(*)conteo ,ISNULL ( max(resn3) , 0) promedio,cp.turno,tm.codtema,cp.ceco from plaasis pa join plantilla_curso pc on pa.id_plantilla=pc.id_plantilla join tema tm on tm.codtema=pc.codtema 
+join capacitado cp on cp.cedcapac=pa.cedcapac inner join asistencia asi on asi.id_plantilla=pa.id_plantilla and asi.cedcapac=pa.cedcapac
+group by cp.codgm,tm.nomtema,cp.turno,tm.codtema,cp.ceco,cp.nomcapac,cp.apecapac,cp.cedcapac;
+
+Anterior
+
+USE [SOFCAP]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER view [dbo].[reporteCIndividual]
+as
+select cp.codgm,cp.cedcapac,cp.nomcapac,cp.apecapac,tm.nomtema,count(*)conteo ,ISNULL ( max(resn3) , 0) promedio,cp.turno,tm.codtema,cp.ceco,cp.id_grupo 
+from capacitado cp join grupo_cap gca on cp.id_grupo=gca.id_grupo join tema_grupo tgr on gca.id_grupo=tgr.id_grupo
+left join plaasis pa on pa.cedcapac=cp.cedcapac join plantilla_curso pc on pa.id_plantilla=pc.id_plantilla and tgr.codtema=pc.codtema join tema tm on tm.codtema=pc.codtema join asistencia asi on asi.id_plantilla=pa.id_plantilla and asi.cedcapac=pa.cedcapac
+group by cp.codgm,tm.nomtema,cp.turno,tm.codtema,cp.ceco,cp.nomcapac,cp.apecapac,cp.cedcapac,cp.id_grupo;
+
+**/
+

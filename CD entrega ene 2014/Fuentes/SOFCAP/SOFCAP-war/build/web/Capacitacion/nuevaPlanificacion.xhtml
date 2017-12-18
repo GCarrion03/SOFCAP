@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+	value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+	value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+ 
+    <ui:define name="header">
+         <h:panelGrid columns="4" cellpadding="0" cellspacing="0">
+                    <h:panelGroup layout="block" styleClass="botonD" >
+                         <a4j:commandLink styleClass="ADDTEA" execute="@this"
+                                         value="Seleccionar instructores" oncomplete="#{rich:component('mpins')}.show();" action="#{nuevaCapacitacionController.cargarCapacitadores}"
+                                        render="panelInstructor"/>
+                    </h:panelGroup>
+                     
+                    <h:panelGroup layout="block" styleClass="botonD" >
+                        <a4j:commandLink value="Guardar curso" styleClass="SAVE" action="#{nuevaCapacitacionController.guardarPlantillaCurso}" execute="@form"
+                                        rendered="#{nuevaCapacitacionDataManager.paso!='editar'}"/>
+                    </h:panelGroup> 
+                     <h:panelGroup layout="block" styleClass="botonD" >
+                         <a4j:commandLink value="Guardar curso" styleClass="SAVE" action="#{nuevaCapacitacionController.actualizarCurso}" execute="@form"
+                                        rendered="#{nuevaCapacitacionDataManager.paso=='editar'}"/>
+                     </h:panelGroup>
+              </h:panelGrid>
+             <rich:toolbarGroup location="right">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                         <a4j:commandLink value="Volver" styleClass="RETURN" execute="@this" action="#{nuevaCapacitacionController.volverMenu}" />
+                     </h:panelGroup>
+                 </rich:toolbarGroup>        
+                     
+                     
+               
+    </ui:define>
+    
+    <ui:define name="contentCenter">
+                <p:panel header="Nueva planificación">
+                    <ui:include src="panelPlanificacion.xhtml" />
+                </p:panel>
+               </ui:define>
+    <ui:define name="modal">
+        <ui:include src="modalInstructores.xhtml" />
+        <rich:popupPanel header="Ingreso de nuevo asistente:" autosized="true"
+			moveable="false" id="mp" width="400">
+			<f:facet name="controls">
+				<h:outputLink value="#" onclick="#{rich:component('mp')}.hide();">
+					<h:graphicImage library="images/icons" name="closebar.png"
+						style="border:0px" id="hidelink" />
+				</h:outputLink>
+			</f:facet>
+			<h:form>
+				<h:panelGroup layout="block" id="panelVisual">
+					<p:panel>
+						<h:panelGrid columns="4">
+							<h:graphicImage library="images/icons" name="pregunta.gif" />
+							<h:outputText value="información:" />
+							<h:outputText
+								value="Ingrese el número de cédula:"
+								id="lblCasoCreado" />
+                                                        <h:inputText id="cedulaCapac" value="#{nuevaCapacitacionDataManager.capacitadoPln.cedcapac}"/>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGroup>
+				<center>
+					<h:panelGrid>
+						<a4j:commandButton value="Aceptar"
+                                                        action="#{nuevaCapacitacionController.anadirCapacitado}"
+							onclick="#{rich:component('mp')}.hide()" execute="cedulaCapac"
+                                                        render="tablaAsistentes"/>
+					</h:panelGrid>
+				</center>
+			</h:form>
+		</rich:popupPanel>
+    </ui:define>
+</ui:composition>

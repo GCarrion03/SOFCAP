@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Reporte Instructores" />
+
+    <ui:define name="contentCenter">
+        <style>
+            .colLeft{
+                width:25%;
+                vertical-align: top;
+            }
+        </style>
+        <style>
+            .colRight{
+                width:75%;
+                vertical-align: top;
+            }
+            .colorrojotd{
+                background-color: #FFCCCC;
+
+            }
+            .colorverdetd{
+                background-color: #CCFFCC;
+
+            }
+        </style>
+        <h:panelGrid columns="2"  columnClasses="colLeft,colRight" width="100%"> 
+            <p:panel header="Búsqueda de Cartilla individual:" style="width:400px" id="panelFiltros">
+                <h:selectOneRadio id="radiocodigo" value="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte}">
+                    <f:selectItem itemValue="op1" itemLabel="Búsqueda por código:"/>  
+                    <a4j:ajax event="click" render="panelFiltros" execute="@this"
+                              listener="#{nuevaCapacitacionController.limpiarFiltros}"></a4j:ajax>
+                </h:selectOneRadio>
+                <h:panelGrid columns="2" id="filtros" rendered="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte=='op1'}">
+                    <h:outputText value="Código GM:"/>
+                    <h:inputText id="codgm" value="#{nuevaCapacitacionDataManager.planificacionAsistenciaReporte.codgm}"/>
+                </h:panelGrid>
+                <h:selectOneRadio id="radiofavanz" value="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte}">
+                    <f:selectItem itemValue="op2" itemLabel="Búsqueda avanzada:"/>  
+                    <a4j:ajax event="click" render="panelFiltros" execute="@this"
+                              listener="#{nuevaCapacitacionController.limpiarFiltros}"></a4j:ajax>
+                </h:selectOneRadio>
+                <h:panelGrid columns="2" id="filtrosAvanz" rendered="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte=='op2'}">
+                    <h:outputLabel value="Turno:"/>
+                    <h:selectManyListbox id="turnos" style="height:50px;width: 300px;" value="#{nuevaCapacitacionDataManager.planificacionAsistenciaReporte.colTurno}">
+                        <f:selectItem itemLabel="Seleccione" />
+                        <f:selectItem itemLabel="Turno 1" itemValue="1"/>
+                        <f:selectItem itemLabel="Turno 2" itemValue="2"/>
+                        <f:selectItem itemLabel="Turno 3" itemValue="3"/>
+                    </h:selectManyListbox>
+                    <h:outputLabel value="Tema:"/>
+                    <h:selectManyListbox id="temas" style="height:200px;width: 300px;" value="#{nuevaCapacitacionDataManager.planificacionAsistenciaReporte.colTema}">
+                        <f:selectItems value="#{nuevaCapacitacionDataManager.listaTemas}" />
+                    </h:selectManyListbox>
+                    <h:outputLabel value="CECO:"/>
+                    <h:selectManyListbox id="cecos" style="height:50px;width: 300px;" value="#{nuevaCapacitacionDataManager.planificacionAsistenciaReporte.colCeco}">
+                        <f:selectItems value="#{nuevaCapacitacionDataManager.listaCecos}" />
+                    </h:selectManyListbox>
+
+                </h:panelGrid>
+                <h:panelGrid style="text-align: right;" width="100%">
+                    <h:panelGroup  style="float: right;">
+
+                        <h:panelGroup layout="block" styleClass="botonD" >
+                            <a4j:commandLink style="text-align: right;" value="Generar Reporte" styleClass="REPCIN"
+                                               rendered="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte=='op1'}" action="#{nuevaCapacitacionController.generarReporteCartillaIndividual}" 
+                                               render="panelResultado" execute="codgm"/>
+
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="botonD" >
+                            <a4j:commandLink style="text-align: right;" value="Generar Reporte" 
+                                               styleClass="REPCIN" action="#{nuevaCapacitacionController.generarReporteCartillaIndividualFiltrosCompuestos}" 
+                                               rendered="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte=='op2'}"
+                                               render="panelResultado" execute="turnos temas cecos"/>
+                        </h:panelGroup>
+
+
+
+                    </h:panelGroup>
+                </h:panelGrid>
+            </p:panel>
+
+            <a4j:outputPanel id="panelResultado" >
+                <h:panelGrid columns="4" width="100%" rendered="#{nuevaCapacitacionDataManager.radioSeleccionadoReporte=='op1'}">
+                    <h:outputText value="Código GM:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.codgm}"/>
+                    <h:outputText value="Cédula:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.cedcapac}"/>
+                    <h:outputText value="Nombres:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.nomcapac}"/>
+                    <h:outputText value="Apellidos:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.apecapac}"/>
+                    <h:outputText value="CECO:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.ceco}"/>
+                    <h:outputText value="Tipo de contrato:"/>
+                    <h:outputText value="#{nuevaCapacitacionDataManager.capacitadoPln.tipcon}"/>
+                </h:panelGrid>
+
+                <p:dataTable rendered="#{!empty nuevaCapacitacionDataManager.colReporteCIndividual}" 
+                             value="#{nuevaCapacitacionDataManager.colReporteCIndividual}" style="width: 100%" 
+                             var="cursoAsistente" rowStyleClass="#{cursoAsistente.promedio gt 79 ? 'colorverdetd':'colorrojotd'}">
+                    <p:column headerText="Código:">
+                        <h:outputText value="#{cursoAsistente.codgm}"/>
+                    </p:column>
+                    <p:column headerText="Nombres:">
+                        <h:outputText value="#{cursoAsistente.nomcapac}"/>
+                    </p:column>
+                    <p:column headerText="Apellidos:">
+                        <h:outputText value="#{cursoAsistente.apecapac}"/>
+                    </p:column>
+                    <p:column headerText="Ceco:">
+                        <h:outputText value="#{cursoAsistente.ceco}"/>
+                    </p:column>
+                    <p:column headerText="Tema:" footerText="Promedio:">
+                        <h:outputText value="#{cursoAsistente.nomtema}"/>
+
+                    </p:column>
+                    <p:column headerText="Puntaje más alto:" footerText="">
+                        <center>
+                            <h:outputText value="#{cursoAsistente.promedio}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                            </h:outputText>
+                        </center>
+                        <f:facet name="footer"> 
+                            <h:outputText value="#{nuevaCapacitacionDataManager.totalPromedioReporteCIndividual}" >
+                                <f:convertNumber maxFractionDigits="2" />
+                            </h:outputText>
+                        </f:facet>  
+
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </a4j:outputPanel>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

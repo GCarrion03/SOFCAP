@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<div class="rf-p-hdr" style="padding:0px;border:1px">
+		<table width="100%" cellspacing="2" cellpadding="0" border="0">
+			<tr>
+				<td align="left" width="10%"><h:graphicImage library="images/icons" name="logo.gif"/></td>
+				<td width="85%" valign="top">
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="25px" width="100%"></td>
+							<td height="25px">
+								<h:panelGroup layout="block" styleClass="botonDSB">
+									<a4j:commandLink id="Profiles" value="Perfiles" execute="@this" immediate="true" style="background-image:url('#{resource['images/icons:cambiarPerfil.gif']}');width:60px;" oncomplete="#{rich:component('Perfiles')}.show()" 
+										actionListener="#{changeProfilesController.cargarPerfiles}" render="panel" rendered="#{loginController.showProfileButton}"/>
+								</h:panelGroup>
+							</td>
+							<td height="25px">
+								<h:panelGroup layout="block" styleClass="botonDSB">
+									<a4j:commandLink id="btnFav" value="#{msg_utilJSF['menu.etiqueta.favorito']}" execute="@this" immediate="true" styleClass="favoritoD" style="width:60px;" onclick="window.parent.openFrame('pages/adminFavoritos.jsf','admFav','#{msg_utilJSF['etiqueta.administracion.favoritos']}');"/>
+								</h:panelGroup>
+							</td>
+							<td height="25px">
+								<h:panelGroup layout="block" styleClass="botonDSB">
+									<a4j:commandLink id="btnHelp" value="#{msg_utilJSF['menu.etiqueta.ayuda']}" execute="@this" styleClass="ayudaD" immediate="true"/>
+								</h:panelGroup>
+							</td>
+							<td height="25px">
+								<h:panelGroup layout="block" styleClass="botonDSB">
+									<a4j:commandLink id="btnCerSes" value="#{msg_utilJSF['menu.etiqueta.cerrarSesion']}" execute="@this" immediate="true" styleClass="cerrarSesionD" actionListener="#{loginController.logoutUser}"/>
+								</h:panelGroup>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</ui:composition>

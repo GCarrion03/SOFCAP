@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Reporte Instructores" />
+
+    <ui:define name="header">
+        <h:panelGrid columns="4" cellpadding="0" cellspacing="0">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                        <a4j:commandLink value="Nuevo usuario" styleClass="ADDUSR" action="#{nuevaCapacitacionController.nuevoUsuario}" execute="@this"/>
+                </h:panelGroup> 
+        </h:panelGrid>
+    <rich:toolbarGroup location="right">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+                </h:panelGroup>
+            </rich:toolbarGroup>
+        </ui:define>
+    <ui:define name="contentCenter">
+        <h:panelGrid columns="1" width="100%" style="text-align: center;padding-left: 35%;"> 
+                
+            <p:panel header="Búsqueda de usuarios:" style="width:400px" id="panelFiltros">
+                <a4j:outputPanel id="panelResultado" >
+                <p:dataTable rendered="#{!empty nuevaCapacitacionDataManager.usuariosCol}" 
+                             value="#{nuevaCapacitacionDataManager.usuariosCol}" style="width: 100%" 
+                             var="usuario" rowIndexVar="indexUsu">
+                    <p:column headerText="Nro:" >
+                        <h:outputText value="#{indexUsu}"/>
+                    </p:column>
+                    <p:column headerText="Nombre de usuario:" filterBy="#{usuario.nomusr}" 
+                    filterMatchMode="contains">
+                        <a4j:commandLink value="#{usuario.nomusr}" action="#{nuevaCapacitacionController.editarUsuario}">
+                            <f:setPropertyActionListener value="#{usuario}"
+                                                     target="#{nuevaCapacitacionDataManager.usuarioEdicion}" />
+                        </a4j:commandLink>
+                    </p:column>
+                    <p:column headerText="Rol:" filterBy="#{usuario.rol.desrol}" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{usuario.rol.desrol}"/>
+                    </p:column>
+                </p:dataTable>
+
+            </a4j:outputPanel>
+                
+            </p:panel>
+
+            
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

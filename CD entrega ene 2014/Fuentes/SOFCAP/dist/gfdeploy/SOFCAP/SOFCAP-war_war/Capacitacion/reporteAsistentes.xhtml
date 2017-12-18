@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+	value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+	value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="header">
+    <rich:toolbarGroup location="right">
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+                </h:panelGroup>
+            </rich:toolbarGroup>
+        </ui:define>
+    
+    <ui:define name="contentCenter">
+<!--        <h:panelGrid columns="2">
+             <h:outputText value="seleccione un área:  " rendered="#{nuevaCapacitacionDataManager.pasoCapacitacion!='n1'}"/>
+                    <h:selectOneMenu value="0">
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaCmbAreas}" />
+                    </h:selectOneMenu>
+        </h:panelGrid>-->
+
+    <p:panel header="Búsqueda de capacitaciones">
+                <h:panelGrid columns="6" id="filtros">
+                     <h:outputText value="Tema:"/>
+
+                    <h:outputText value="Fecha de inicio:"/>
+                    <rich:calendar value="#{nuevaCapacitacionController.plantillaCurso.fechaInicio}" datePattern="d/M/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                        <h:outputText value="Fecha de fin:"/>
+                        <rich:calendar value="#{nuevaCapacitacionController.plantillaCurso.fechaFin}" datePattern="d/M/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                        <a4j:commandButton value="Buscar Capacitaciones" action="#{nuevaCapacitacionController.cargarCapacitacionesPerido}"
+                                           execute="@form" render="panelBusqueda"/>
+            </h:panelGrid>
+            <a4j:outputPanel id="panelBusqueda">
+                <h:outputText value="seleccione una de las capacitaciones disponibles para este período:  "/>
+                        <h:selectOneMenu value="#{nuevaCapacitacionDataManager.curso.id_plantilla}">
+                                <f:selectItem itemLabel="Todas"/>
+                                <f:selectItems value="#{nuevaCapacitacionDataManager.listaPlanificacionCursos}" />
+                                <a4j:ajax event="change" render="pnldatosplanif"
+                                    execute="@this"
+                                    listener="#{nuevaCapacitacionController.cargarDatosCapacitacion}" />
+                        </h:selectOneMenu>
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink styleClass="REPASI" value="Generar Reporte" action="#{nuevaCapacitacionController.reporteAsistencia}" render="panelResultado" execute="panelBusqueda"/>
+                </h:panelGroup>
+                
+            </a4j:outputPanel>
+            </p:panel>
+<center>
+    <a4j:outputPanel id="panelResultado">
+    <p:dataTable value="#{nuevaCapacitacionDataManager.listaAreas}" style="width: 50%" var="area">
+            <p:column headerText="Código">
+                <h:outputText value="#{area.codarea}"/>
+            </p:column>
+            <p:column headerText="Descripción">
+                <h:outputText value="#{area.desarea}"/>
+            </p:column>
+            <p:column headerText="Nro. Asistentes">
+                <h:outputText value="#{area.asistentes}"/>
+            </p:column>
+        </p:dataTable>
+        </a4j:outputPanel>
+    </center>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui">
+    <fieldset>
+        <h:panelGrid columns="4" id="datosPlanificacion" rendered="#{nuevaCapacitacionDataManager.planificacionCurso!=null}" >
+            <h:outputText value="Tipo de curso:"/>
+            <h:selectOneRadio value="#{nuevaCapacitacionDataManager.planificacionCurso.codtipcap}" layout="pageDirection"
+                              disabled="#{nuevaCapacitacionDataManager.paso=='editar'}" required="true" requiredMessage="Error: Seleccione el tipo de curso">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaTipoCurso}" />
+            </h:selectOneRadio>
+            <h:outputText value="Principio GMS:"/>
+            <h:selectOneMenu value="#{nuevaCapacitacionDataManager.codigoPrincipio}" required="true" requiredMessage="Error: Seleccione el principio"
+                             disabled="#{nuevaCapacitacionDataManager.paso=='editar'}">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaPrincipios}" />
+                <a4j:ajax event="change" render="temas"
+                          execute="@this"
+                          listener="#{nuevaCapacitacionController.cargarTemas}" />
+            </h:selectOneMenu>
+
+            <h:outputText value="Tema:"/>
+            <h:selectOneMenu id="temas" value="#{nuevaCapacitacionDataManager.planificacionCurso.codtema}" required="true" requiredMessage="Error: Seleccione el tema"
+                             rendered="#{nuevaCapacitacionDataManager.paso!='editar'}">
+                <f:selectItems value="#{nuevaCapacitacionDataManager.listaTemas}" />
+
+            </h:selectOneMenu>
+            <h:outputText value="#{nuevaCapacitacionDataManager.planificacionCurso.tema.nomtema}"
+                          rendered="#{nuevaCapacitacionDataManager.paso=='editar'}">
+            </h:outputText>
+
+            <h:outputText value="Objetivo:"/>
+            <h:inputText value="#{nuevaCapacitacionDataManager.planificacionCurso.objetivo}" required="true" requiredMessage="Error: el objetivo es requerido"
+                         disabled="#{nuevaCapacitacionDataManager.paso=='editar'}"/>
+            <h:outputText value="Fecha de inicio:"/>
+            <rich:calendar value="#{nuevaCapacitacionDataManager.planificacionCurso.fechaInicio}" datePattern="dd/MM/yy"
+                           disabled="#{nuevaCapacitacionDataManager.paso=='editar' and !(menuDataManager.usuarioSesion.idRol==1 and nuevaCapacitacionDataManager.pasoFlujo=='carCap')}"
+                           locale="es"/>
+            <h:outputText value="Fecha de fin:"/>
+            <rich:calendar value="#{nuevaCapacitacionDataManager.planificacionCurso.fechaFin}" datePattern="dd/MM/yy"
+                           disabled="#{nuevaCapacitacionDataManager.paso=='editar' and !(menuDataManager.usuarioSesion.idRol==1 and nuevaCapacitacionDataManager.pasoFlujo=='carCap')}"
+                           locale="es"/>
+        </h:panelGrid>
+
+    </fieldset>
+
+
+</ui:composition>
+

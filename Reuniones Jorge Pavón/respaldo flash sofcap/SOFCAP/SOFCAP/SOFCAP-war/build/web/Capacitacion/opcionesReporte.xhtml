@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="contentCenter">
+        <h:outputStylesheet library="css" name="buttons-base.css"/>
+        <center>
+        <h:panelGrid columns="1" width="100%">
+            
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Planificacion y Asistencia" styleClass="REPASI" immediate="true" execute="@this"
+                                       action="#{nuevaCapacitacionController.redireccionarReportePlanificadoAsistencia}"/>		
+
+                </h:panelGroup>
+                
+                <h:panelGroup layout="block" styleClass="botonD" >
+                    <a4j:commandLink value="Cartilla individual" styleClass="REPCIN" immediate="true" execute="@this"
+                                       action="#{nuevaCapacitacionController.redireccionarCIndividual}"/>
+                   		
+
+                </h:panelGroup>
+
+                
+                <a4j:commandButton value="Asistencia" action="#{nuevaCapacitacionController.redireccionarReporteAsistencia}" style="visibility: hidden;"/>
+                <a4j:commandButton value="Instructores" action="#{nuevaCapacitacionController.redireccionarReporteInstructor}" style="visibility: hidden;"/>
+            
+
+        </h:panelGrid>
+            </center>
+    </ui:define>
+
+</ui:composition>

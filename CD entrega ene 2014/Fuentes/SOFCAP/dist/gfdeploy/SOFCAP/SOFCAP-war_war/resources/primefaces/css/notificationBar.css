@@ -1,0 +1,18 @@
+/*** Estilos para la barra de notificaciones ***/
+.ui-notificationbar {
+	background-image: url("#{resource['primefaces/css/images:notificationBack.png']}");
+	background-repeat: repeat-x;
+	z-index: 200;
+}
+.ui-messages {
+	width:92%;
+	height: 110px;
+	overflow:auto;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+}
+.ui-message-icon-only{padding: 0px !important;}
+.ui-messages UL{list-style-type: disc; margin-left:40px}
+.ui-messages-error-summary, .ui-messages-fatal-summary, .ui-message-info-summary,.ui-messages-warn-summary{margin-left:0px}
+.ui-widget .ui-widget{font-size: 10px}

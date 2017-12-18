@@ -1,0 +1,8 @@
+C:\SOFCAP\lib
+
+commons-io-2.4.jar
+commons-fileupload-1.3.jar
+
+poi-3.7-20101029
+poi-ooxml-3.7-20101029
+poi-ooxml-schemas-3.7-20101029

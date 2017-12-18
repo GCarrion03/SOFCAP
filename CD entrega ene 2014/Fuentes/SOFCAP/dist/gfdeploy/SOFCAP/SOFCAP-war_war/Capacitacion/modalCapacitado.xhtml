@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <rich:popupPanel header="Selección de asistentes" autosized="true"
+                     moveable="false" id="mpcap" width="1200" height="400">
+                        <f:facet name="controls">
+				<h:outputLink value="#" onclick="#{rich:component('mpcap')}.hide();">
+					<h:graphicImage library="images/icons" name="closebar.png"
+						style="border:0px" id="hidelinkcap" />
+				</h:outputLink>
+			</f:facet>
+        <h:form>
+            <a4j:outputPanel id="panelPopCap"></a4j:outputPanel>
+                <h:outputText value="Seleccione las personas que asistirán a la capacitación:"/>
+                    <h:panelGrid columns="3" id="panelBusqueda" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo=='carCap'}">
+                        <h:outputLabel value="Puntaje menor a:"/>
+                        <h:selectOneMenu value="#{nuevaCapacitacionDataManager.filtroBusquedaCap}">
+                            <f:selectItem itemValue="80"/>
+                            <f:selectItem itemValue="100"/>
+                        </h:selectOneMenu>
+                        <a4j:commandButton value="Buscar" execute="panelBusqueda"
+                                           render="tablaCapacitados" action="#{nuevaCapacitacionController.cargarCapacitadosPuntaje}"/>
+                    </h:panelGrid>
+                <a4j:outputPanel id="tablaCapacitados" >
+                    <p:dataTable value="#{nuevaCapacitacionDataManager.listaCapacitados}" var="capacitado">
+                    <p:column filterBy="#{capacitado.codgm}" headerText="Código GM"  
+                    filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.codgm}"/>
+                    </p:column>
+                    <p:column headerText="Cédula">
+                        <h:outputText value="#{capacitado.cedcapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{capacitado.nomcapac}" headerText="Nombre" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.nomcapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{capacitado.apecapac}" headerText="Apellidos" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.apecapac}"/>
+                    </p:column>
+                    <p:column filterBy="#{capacitado.turno}" headerText="Turno" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.turno}"/>
+                    </p:column>
+                    <p:column filterBy="#{capacitado.ceco}" headerText="CECO" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.ceco}"/>
+                    </p:column>
+                    <p:column filterBy="#{capacitado.lider.cargo}" headerText="Lider" 
+                        filterMatchMode="contains">
+                        <h:outputText value="#{capacitado.lider.cargo}"/>
+                    </p:column>
+                    <p:column rendered ="#{nuevaCapacitacionDataManager.pasoFlujo=='carCap'}">
+                        <f:facet name="header">
+                            <h:outputLabel value="Puntaje: " />
+                        </f:facet>
+                        <h:outputText value="#{capacitado.evaluacionN3}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Asistirá: " />
+                            <h:selectBooleanCheckbox id="checkPadre" onchange="toggleChecked(this.checked)" >
+                                 <a4j:ajax event="click" execute="@form" render="tablaCapacitadosOpt"/>
+                            </h:selectBooleanCheckbox>
+                            <script>
+                                function toggleChecked(status) {
+                                    $(".checkbox").each( function() {
+                                    $(this).attr("checked",status);
+                                    })
+                                }
+                            </script>
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{capacitado.seleccionado}" class="checkbox" id="checkCap"  >
+                            <a4j:ajax event="click" execute="@this" render="checkCap PNLResN2"/>
+                        </h:selectBooleanCheckbox>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Evaluación nivel 2: " />
+                        </f:facet>
+                        <a4j:outputPanel id="PNLResN2">
+                            <h:inputText value="#{capacitado.evaluacionN3}" rendered="#{capacitado.seleccionado}" id="txtNotaN2">
+                                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+                                        <a4j:ajax event="blur" execute="@this" status="no" render="checkCap PNLResN2"/>
+                            </h:inputText>
+                        </a4j:outputPanel>
+                    </p:column>
+                </p:dataTable>
+            </a4j:outputPanel>    
+                <center>
+                    <a4j:commandButton value="Aceptar" execute="tablaCapacitados" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo=='carCap'}"
+                               onclick="#{rich:component('mpcap')}.hide()"/>
+                    <a4j:commandButton value="Aceptar" execute="tablaCapacitados" action="#{nuevaCapacitacionController.anadirCapacitados}"
+                               onclick="#{rich:component('mpcap')}.hide()" rendered ="#{nuevaCapacitacionDataManager.pasoFlujo!='carCap'}"/>
+                </center>
+        </h:form>
+    </rich:popupPanel>
+</ui:composition>

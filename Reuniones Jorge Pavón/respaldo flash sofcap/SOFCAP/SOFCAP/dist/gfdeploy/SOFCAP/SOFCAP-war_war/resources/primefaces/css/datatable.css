@@ -1,0 +1,4 @@
+.ui-datatable TH{padding: 1px}
+.ui-datatable TH DIV.ui-dt-c{padding: 1px}
+.ui-datatable .ui-datatable-data TD, .ui-datatable .ui-datatable-data-empty TD{padding: 1px}
+.ui-datatable .ui-datatable-data TD DIV.ui-dt-c, .ui-datatable .ui-datatable-data-empty TD DIV.ui-dt-c{padding: 1px}

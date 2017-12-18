@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+	<f:view contentType="text/html">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0"/>
+		<!--scripts generales -->
+		<h:outputScript name="jquery.js" />
+		<h:outputScript library="js" name="jquery/jquery.ui.core.min.js" />
+		<h:outputScript library="js" name="jquery/jquery.ui.widget.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.ui.mouse.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.ui.draggable.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.layout-latest.min.js"/>
+		<h:outputScript library="js" name="window.js"/>
+		<h:outputScript library="js" name="util.window.js"/>
+		<h:outputScript library="js" name="base.js"/>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function (){
+				jQuery('body').layout({
+					north: {
+						resizable: false,
+						showOverflowOnHover: true,
+						spacing_open: 0 //espacio entre norte y centro
+					},
+					south: {
+						spacing_open: 0, //espacio entre centro y sur
+						size:15
+					}
+				});
+				document.oncontextmenu = new Function("return false");
+				onbeforeunload=function(){invalidateSession();}
+			});
+		</script>
+		<title>#{msg['security.CURRENT_SYSTEM_ID']}</title>
+		<ui:insert name="head" />
+	</h:head>
+	<h:body onkeydown="if(bloquearTeclas(event)) return false">
+		<h:form binding="#{loginController.form}">
+			<div id="header" class="ui-layout-north" style="padding:0px;border:0px">
+				<ui:include src="header.xhtml"/>
+				<ui:include src="menu.xhtml"/>
+			</div>
+			<div id="content" class="ui-layout-center">
+				<ui:insert name="content">...</ui:insert>
+			</div>
+			<div id="bottom" class="ui-layout-south" style="padding:0px;overflow:hidden;border:0px">
+				<ui:include src="../pages/defaultContent/bottom.xhtml">
+					<ui:param name="fechaSimple" value="1"/>
+				</ui:include>
+			</div>
+			<ui:debug hotkey="l" />
+			<a4j:jsFunction name="invalidateSession" execute="@this" immediate="true" actionListener="#{loginController.logoutUser}"/>
+		</h:form>
+		<ui:include src="/pages/adminPerfiles.xhtml"></ui:include>
+		<a4j:status id="statusAjax" onstart="#{rich:component('statusDialog')}.show()" onstop="#{rich:component('statusDialog')}.hide()"/>
+		<rich:popupPanel id="statusDialog" autosized="true" header="Procesando...">
+			<h:graphicImage library="images" name="ajaxloadingbar.gif"/>
+		</rich:popupPanel>
+	</h:body>
+	<!-- hojas de estilo generales -->
+	<h:outputStylesheet library="css" name="base.css"/>
+	<h:outputStylesheet library="css" name="layout.css"/>
+	<h:outputStylesheet library="css" name="buttons-base.css"/>
+	<h:outputStylesheet library="css" name="window.css"/>
+	<h:outputStylesheet library="primefaces/css" name="notificationBar.css"/>
+	<h:outputStylesheet library="richfaces/css" name="toolbar.css"/>
+	<h:outputStylesheet library="richfaces/css" name="dropdown.css"/>
+	</f:view>
+</html>

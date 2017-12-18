@@ -1,0 +1,14 @@
+html{height:100%}
+body{height:100%; margin:0px; background-position:top center}
+.fiedset1{border:1px solid rgb(172,190,206); margin:0px;padding: 5px}
+.legend1{color:#990000; font-weight:bold; margin:0px 10px 0px 10px;}
+a{font-weight:bold; text-decoration:none; color:#003333}
+a:hover{font-weight:bold; text-decoration:underline; color:#333333}
+textarea, input[type="text"], input[type="password"], select {background-image: none;}
+.required{background-color: #FFFFDD !important;}
+.label-normal {font-weight: normal;}
+.label-bold {font-weight: bold;}
+/* primefaces */
+.ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 12px; }
+.ui-widget-content a { color: #990000; }
+.ui-widget-header a { color: #990000; }

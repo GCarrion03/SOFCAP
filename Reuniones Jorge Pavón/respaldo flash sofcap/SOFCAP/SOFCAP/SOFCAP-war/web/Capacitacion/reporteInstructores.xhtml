@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+	value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+	value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Reporte Instructores" />
+
+    <ui:define name="contentCenter">
+<center>
+    <p:panel header="Búsqueda de Instructores">
+                <h:panelGrid columns="6" id="filtros">
+                     <h:outputText value="Tema:"/>
+
+                    <h:outputText value="Fecha de inicio:"/>
+                    <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaInicio}" datePattern="dd/MM/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                        <h:outputText value="Fecha de fin:"/>
+                        <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaFin}" datePattern="dd/MM/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                         <a4j:commandButton value="Generar Reporte" action="#{nuevaCapacitacionController.reporteInstructor}" render="panelResultado" execute="@form"/>
+            </h:panelGrid>
+            </p:panel>
+
+    <a4j:outputPanel id="panelResultado">
+        <p:dataTable value="#{nuevaCapacitacionDataManager.listaInstructorVista}" style="width: 50%" var="instructor">
+            <p:column headerText="Código">
+                <h:outputText value="#{instructor.codinstr}"/>
+            </p:column>
+            <p:column headerText="Nombre de instructor">
+                <h:outputText value="#{instructor.nominstr}"/>
+            </p:column>
+            <p:column headerText="Nro. Cursos dictados">
+                <h:outputText value="#{instructor.conteo}"/>
+            </p:column>
+        </p:dataTable>
+        </a4j:outputPanel>
+    </center>
+
+
+
+    </ui:define>
+
+</ui:composition>

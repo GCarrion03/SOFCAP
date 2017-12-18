@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:popupPanel width="300" height="250" id="mpw" header="Ventanas abiertas">
+		<f:facet name="controls">
+			<h:outputLink value="#" onclick="#{rich:component('mpw')}.hide(); return false;">
+				<h:graphicImage library="images/icons" name="closebar.png" style="border:0px" id="ihmpw"/>
+			</h:outputLink>
+		</f:facet>
+		<div id="wol" style="height:200px;overflow:auto"></div>
+		<script type="text/javascript">
+			jQuery(document).ready(function (){window.parent.showOpenedWindowList(window.self, '#{request.contextPath}')});
+		</script>
+	</rich:popupPanel>
+</ui:composition>

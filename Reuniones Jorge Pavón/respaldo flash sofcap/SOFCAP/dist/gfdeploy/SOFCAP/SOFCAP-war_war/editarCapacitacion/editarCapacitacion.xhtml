@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Editar capacitación</title>
+    </h:head>
+    <h:body>
+        <h:form id="#{nuevaCapacitacionController.form}">
+            
+                <h:outputLabel value="actualización de curso:"></h:outputLabel>
+                <fieldset>
+                    <h:panelGrid columns="4">
+                        <h:outputText value="Tipo de curso:"/>
+                        <h:selectOneRadio value="#{nuevaCapacitacionDataManager.curso.codtipcap}">
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaTipoCurso}" />
+                        </h:selectOneRadio>
+                        <h:outputText value="Principio GMS:"/>
+                        <h:selectOneMenu value="#{nuevaCapacitacionDataManager.codigoTema}">
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaPrincipios}" />
+                            <a4j:ajax event="change" render="temas"
+				execute="@this"
+                                listener="#{nuevaCapacitacionController.cargarTemas}" />
+                        </h:selectOneMenu>
+                        
+                        <h:outputText value="Tema:"/>
+                        <h:selectOneMenu id="temas" value="#{nuevaCapacitacionDataManager.curso.codtema}">
+                            
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaTemas}" />
+                        </h:selectOneMenu>
+                       
+                        <h:outputText value="Áreas afectadas:"/>
+                         <rich:dataTable value="#{nuevaCapacitacionDataManager.listaAreas}" var="area">
+                            <rich:column>
+                                <h:outputText value="#{area.desarea}"/>
+                            </rich:column>
+                            <rich:column>
+                                <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
+                            </rich:column>
+                        </rich:dataTable>
+                        <h:outputText value="Centro de entrenamiento:"/>
+                        <h:selectOneMenu required="true" id="centEnt" value="#{nuevaCapacitacionDataManager.curso.codcenent}">
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaCentroEntren}" />
+                        </h:selectOneMenu>
+                        <h:outputText value="Instructor:"/>
+                        <h:selectOneMenu id="cmbInstructor" value="#{nuevaCapacitacionDataManager.curso.codinstr}">
+                             <f:selectItems value="#{nuevaCapacitacionDataManager.listaInstructores}" />
+                        </h:selectOneMenu>
+                        <h:outputText value="Turno:"/>
+                        <h:selectOneMenu id="turnos" >
+                            <f:selectItems value="#{nuevaCapacitacionDataManager.listaTurnos}" />
+                        </h:selectOneMenu>
+                        <h:outputText value="Objetivo:"/>
+                        <h:inputText value="#{nuevaCapacitacionDataManager.curso.objetivo}"/>
+                        <h:outputText value="Fecha de inicio:"/>
+                        <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaInicio}"/>
+                        <h:outputText value="Fecha de fin:"/>
+                        <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaFin}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <a4j:commandButton value="Guardar curso" action="#{nuevaCapacitacionController.guardarCurso}" execute="@form"/>
+                        <h:commandButton value="Cancelar"/>
+                        <a4j:commandButton value="Volver" action="#{nuevaCapacitacionController.volverMenu}" />
+                    </h:panelGrid>
+
+
+                </fieldset>
+
+           
+        </h:form>
+        
+    </h:body>
+</html>
+

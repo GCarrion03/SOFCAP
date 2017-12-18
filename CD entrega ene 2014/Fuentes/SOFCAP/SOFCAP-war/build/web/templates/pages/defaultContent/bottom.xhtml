@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<rich:toolbar itemSeparator="disc" style="padding:0px">
+		<rich:toolbarGroup id="tbg1"
+			style="padding-top:0px; padding-bottom:0px; white-space:nowrap;">
+			<label>#{msg_utilJSF['etiqueta.fecha']}:</label>
+			<a4j:outputPanel id="ophour" ajaxRendered="true">
+				<h:outputText value="#{loginController.textCurrentDateHour}"
+					style="font-weight:normal; white-space:nowrap;"/>
+				<script type="text/javascript">
+					jQuery(document).ready(function (){
+						window.parent.showTimer(#{request.session.maxInactiveInterval}/60, "#{msg['security.CURRENT_SYSTEM_ID']}")
+					});
+				</script>
+			</a4j:outputPanel>
+		</rich:toolbarGroup>
+		<rich:toolbarGroup id="tbg2"
+			style="padding-top:0px;padding-bottom:0px; white-space:nowrap;">
+			<label>#{msg_utilJSF['etiqueta.usuario']}:</label>
+			<h:outputText
+				value="#{sessionDataManagerBase.userDto.userCompleteName}"
+				style="font-weight:normal; white-space:nowrap;"/>
+		</rich:toolbarGroup>
+		<rich:toolbarGroup id="tbg3"
+			style="padding-top:0px;padding-bottom:0px; white-space:nowrap;">
+			<label>#{msg_utilJSF['etiqueta.perfil']}:</label>
+			<h:outputText
+				value="#{sessionDataManagerBase.profileDto.profileName}"
+				style="font-weight:normal; white-space:nowrap;"/>
+		</rich:toolbarGroup>
+	</rich:toolbar>
+</ui:composition>

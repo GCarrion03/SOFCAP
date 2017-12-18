@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/templates/pages/pageLayout1.xhtml">
+    <ui:param name="form"
+              value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+              value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Reporte Instructores" />
+
+    <ui:define name="header">
+        <h:panelGrid columns="4" cellpadding="0" cellspacing="0">
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Nuevo lider" styleClass="ADDUSR" action="#{nuevaCapacitacionController.nuevoLider}" execute="@this"/>
+            </h:panelGroup> 
+        </h:panelGrid>
+        <rich:toolbarGroup location="right">
+            <h:panelGroup layout="block" styleClass="botonD" >
+                <a4j:commandLink value="Volver" styleClass="RETURN" action="#{nuevaCapacitacionController.volverMenu}" />
+            </h:panelGroup>
+        </rich:toolbarGroup>
+    </ui:define>
+    <ui:define name="contentCenter">
+        <h:panelGrid columns="1" width="100%" style="text-align: center;padding-left: 35%;"> 
+
+            <p:panel header="Búsqueda de líderes:" style="width:400px" id="panelFiltros">
+                <a4j:outputPanel id="panelResultado" >
+                    <div style="height:500px;overflow-y:scroll;">
+                        <p:dataTable rendered="#{!empty nuevaCapacitacionDataManager.lideresCol}" 
+                                     value="#{nuevaCapacitacionDataManager.lideresCol}" style="width: 100%" 
+                                     var="lider" rowIndexVar="indexUsu">
+                            <p:column headerText="Nro:" >
+                                <h:outputText value="#{indexUsu}"/>
+                            </p:column>
+                            <p:column headerText="Código de líder:" filterBy="#{lider.idlider}" 
+                                      filterMatchMode="contains">
+                                <a4j:commandLink value="#{lider.idlider}" action="#{nuevaCapacitacionController.editarLider}">
+                                    <f:setPropertyActionListener value="#{lider}"
+                                                                 target="#{nuevaCapacitacionDataManager.liderEdicion}" />
+                                </a4j:commandLink>
+                            </p:column>
+                            <p:column headerText="Cargo:" filterBy="#{lider.cargo}" 
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{lider.cargo}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+
+                </a4j:outputPanel>
+
+            </p:panel>
+
+
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,92 @@
+/* botones para la barra superior de las pantallas */
+.botonA a{height: 12px; width: 60px; font-family: Arial, Verdana, sans-serif; font-size: 9px; font-weight: bold; text-align:center; text-decoration:none; padding: 50px 0 0 0px; border: 1px solid transparent; background-repeat:no-repeat; background-position:center 2px; display:block;}
+.botonA a:hover{border:1px solid #CADFFF; background-color:lavender; background-repeat:no-repeat}
+.botonA a.buscarA{background-image:url("#{resource['images/buttons:buscar.gif']}"); width:45px}
+.botonA a.nuevoA{background-image:url("#{resource['images/buttons:nuevo.gif']}"); width:45px}
+.botonA a.editarA{background-image:url("#{resource['images/buttons:editar.gif']}"); width:45px}
+.botonA a.guardarA{background-image:url("#{resource['images/buttons:guardar.gif']}"); width:45px}
+.botonA a.cancelarA{background-image:url("#{resource['images/buttons:cancelar.gif']}"); width:45px}
+.botonA a.atrasA{background-image:url("#{resource['images/buttons:atras.gif']}"); width:45px}
+.botonA a.ayudaA{background-image:url("#{resource['images/buttons:ayuda.gif']}"); width:45px}
+.botonA a.limpiarA{background-image:url("#{resource['images/buttons:limpiar.gif']}"); width:45px}
+.botonA a.cambiarPasswordA{background-image:url("#{resource['images/buttons:cambiarPassword.gif']}"); width:50px}
+.botonA a.continuarA{background-image:url("#{resource['images/buttons:adelante.gif']}"); width:50px}
+.botonA a.agregarA{background-image:url("#{resource['images/buttons:agregar.gif']}"); width:50px}
+.botonA a.imprimirA{background-image:url("#{resource['images/buttons:imprimir.gif']}"); width:50px}
+.botonA a.enviarMailA{background-image:url("#{resource['images/buttons:enviar_mail.gif']}"); width:50px}
+
+/* */
+.botonA a.EDITCAPA{background-image:url("#{resource['images/icons/SOFCAPHOME:EDITCAP.png']}"); width:45px}
+.botonA a.NEWCOURSEA{background-image:url("#{resource['images/icons/SOFCAPHOME:NEWCOURSE.png']}"); width:45px}
+.botonA a.NEWPLANA{background-image:url("#{resource['images/icons/SOFCAPHOME:NEWPLAN.png']}"); width:45px;}
+.botonA a.PLANASSISA{background-image:url("#{resource['images/icons/SOFCAPHOME:PLANASSIS.png']}"); width:45px}
+.botonA a.REPORTA{background-image:url("#{resource['images/icons/SOFCAPHOME:REPORT.png']}"); width:45px}
+.botonA a.CLOSES{background-image:url("#{resource['images/icons/SOFCAPHOME:CLOSESES.png']}"); width:45px}
+
+
+/* botones para los segmentos de las pantallas */
+.botonD a{background-color: #CADFFF; color:#000000; background-repeat:no-repeat;background-position:2px 2px; height:25px; width:85px; font-family:Arial,Verdana,sans-serif; font-size:10px; font-weight:bolder; text-align:left; text-decoration:none; padding:13px 0px 2px 35px; border-width:1px; border-style:solid; border-color:#F2F7FF #BED6F8 #BED6F8 #F2F7FF; display:block; }
+.botonD a:hover{border-width:1px; border-style:solid; border-color:#FCF1D6 #E5973E #E5973E #FCF1D6; background-color:#BED6F8 ; background-repeat:no-repeat}
+
+.botonD a.REPCIN{background-image:url("#{resource['images/icons/SOFCAPREPORT/32X32:CIndividual.png']}"); width:85px}
+.botonD a.REPASI{background-image:url("#{resource['images/icons/SOFCAPREPORT/32X32:Asistencia.png']}"); width:85px}
+.botonD a.ADDTEA{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDTEACHER.png']}"); width:85px}
+.botonD a.ADDPLA{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:ADDPLA.png']}"); width:85px}
+.botonD a.ADDASI{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:CHEASI.png']}"); width:85px}
+.botonD a.RETURN{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:RETURN.png']}"); width:85px}
+.botonD a.SAVE{background-image:url("#{resource['images/icons/SOFCAPFLOW/32X32:SAVE.png']}"); width:85px}
+/*.botonD {border:solid 1px #bed6f8; background-image: url("#{resource['images/figures/backbotonD.gif']}"); background-repeat:repeat-x; display:inline-block; background-position:-2px; height:16px; padding-top:3px;}
+.botonD a{vertical-align:top; cursor:default; font-family:Verdana, Arial, sans-serif; font-size:10px; font-weight:bold; text-align:left; text-decoration:none; color:#000; padding-top:3px; padding-bottom:3px; padding-left:23px; padding-right:5px; background-repeat:no-repeat; overflow:auto; background-position:2px 2px;}
+.botonD a:hover{font-weight:bold; text-decoration:none; background-color:#fae6b0;}*/
+
+.botonD a.buscarD{background-image:url("#{resource['images/icons:buscar.gif']}");width:60px;}
+.botonD a.aceptarD{background-image:url("#{resource['images/icons:aceptar.gif']}");width:60px;}
+.botonD a.actualizarD{background-image:url("#{resource['images/icons:actualizar.gif']}");width:60px;}
+.botonD a.nuevoD{background-image:url("#{resource['images/icons:nuevo.gif']}"); width:60px;}
+.botonD a.agregarD{background-image:url("#{resource['images/icons:agregar.gif']}"); width:60px;}
+.botonD a.removerD{background-image:url("#{resource['images/icons:eliminar.gif']}"); width:60px;}
+.botonD a.editarD{background-image:url("#{resource['images/icons:editar.gif']}"); width:60px}
+.botonD a.guardarD{background-image:url("#{resource['images/icons:guardar.gif']}"); width:60px}
+.botonD a.cancelarD{background-image:url("#{resource['images/icons:cancelar.gif']}"); width:60px}
+.botonD a.abrirVentanaD{background-image:url("#{resource['images/icons:nuevaVentana.gif']}"); width:60px;}
+.botonD a.imprimirD{background-image:url("#{resource['images/icons:imprimir.gif']}"); width:60px}
+.botonD a.enviarMailD{background-image:url("#{resource['images/icons:enviar_mail.gif']}"); width:70px}
+
+/* botones para los segmentos de las pantallas sin borde */
+.botonDSB a{height:18px; width:85px; font-family:Arial,Verdana,sans-serif; font-size:10px; font-weight:bolder; text-align:left; text-decoration:none; padding:6px 0 0 26px; border:1px solid transparent; background-repeat:no-repeat; voice-family:inherit; display:block}
+.botonDSB a:hover{border:1px solid #e5973e; background-color:#fae6b0; background-repeat:no-repeat}
+.botonDSB a.cerrarSesionD{background-image:url("#{resource['images/buttons:closeSession.gif']}")}
+.botonDSB a.ayudaD{background-image:url("#{resource['images/buttons:ayuda.gif']}"); width:40px}
+.botonDSB a.favoritoD{background-image:url("#{resource['images/buttons:estrella.gif']}");}
+
+/* botones desactivados para la barra superior de las pantallas */
+.botonB a{height:12px; color:#A0A0A0; cursor:default; width:60px; font-family:Arial,Verdana,sans-serif; font-size:9px; font-weight:bold; text-align:center; text-decoration:none; padding:28px 0 0 0px; border:1px solid transparent; background-repeat:no-repeat; background-position:center 2px; display:block}
+.botonB a.guardarB{background-image:url("#{resource['images/buttons/desactivados:guardar.gif']}"); width:45px}
+.botonB a.nuevoB{background-image:url("#{resource['images/buttons/desactivados:nuevo.gif']}"); width:45px}
+.botonB a.editarUB{background-image:url("#{resource['images/buttons/desactivados:editar.gif']}"); width:45px}
+.botonB a.guardarB{background-image:url("#{resource['images/buttons/desactivados:guardar.gif']}"); width:45px}
+.botonB a.cancelarB{background-image:url("#{resource['images/buttons/desactivados:cancelar.gif']}"); width:45px}
+.botonB a.atrasB{background-image:url("#{resource['images/buttons/desactivados:atras.gif']}"); width:45px}
+.botonB a.limpiarB{background-image:url("#{resource['images/buttons/desactivados:limpiar.gif']}"); width:45px}
+.botonB a.continuarB{background-image:url("#{resource['images/buttons/desactivados:adelante.gif']}"); width:50px}
+.botonB a.agregarB{background-image:url("#{resource['images/buttons/desactivados:agregar.gif']}"); width:50px}
+.botonB a.imprimirB{background-image:url("#{resource['images/buttons/desactivados:imprimir.gif']}"); width:50px}
+.botonB a.enviarMailB{background-image:url("#{resource['images/buttons/desactivados:enviar_mail.gif']}"); width:50px}
+
+/* botones desactivados para los segmentos de las pantallas */
+.botonDB a{color:#A0A0A0;cursor:default;background-repeat:no-repeat;background-position:2px 2px; height:15px; width:85px; font-family:Arial,Verdana,sans-serif; font-size:10px; font-weight:bolder; text-align:left; text-decoration:none; padding:2px 0 2px 23px; border-width:1px; border-style:solid; border-color:#F2F7FF #BED6F8 #BED6F8 #F2F7FF; display:block}
+.botonDB a.buscarDB{background-image:url("#{resource['images/icons/desactivados:buscar.gif']}");width:60px;}
+.botonDB a.aceptarDB{background-image:url("#{resource['images/icons/desactivados:aceptar.gif']}");width:60px;}
+.botonDB a.actualizarDB{background-image:url("#{resource['images/icons/desactivados:actualizar.gif']}");width:60px;}
+.botonDB a.nuevoDB{background-image:url("#{resource['images/icons/desactivados:nuevo.gif']}"); width:60px;}
+.botonDB a.agregarDB{background-image:url("#{resource['images/icons/desactivados:agregar.gif']}"); width:60px;}
+.botonDB a.removerDB{background-image:url("#{resource['images/icons/desactivados:eliminar.gif']}"); width:60px;}
+.botonDB a.editarDB{background-image:url("#{resource['images/icons/desactivados:editar.gif']}"); width:60px}
+.botonDB a.guardarDB{background-image:url("#{resource['images/icons/desactivados:guardar.gif']}"); width:60px}
+.botonDB a.cancelarDB{background-image:url("#{resource['images/icons/desactivados:cancelar.gif']}"); width:60px}
+.botonDB a.imprimirDB{background-image:url("#{resource['images/icons/desactivados:imprimir.gif']}"); width:60px}
+.botonDB a.enviarMailDB{background-image:url("#{resource['images/icons/desactivados:enviar_mail.gif']}"); width:70px}
+
+/* botones para el panel principal*/
+.botonP a{height:25px; width:100px; font-family:Arial,Verdana,sans-serif; font-size:10px; font-weight:bolder; text-align:center; text-decoration:none; padding:55px 0 0 0px; border:1px solid transparent; background-repeat:no-repeat; background-position:center 3px; voice-family:inherit; display:block}
+.botonP a:hover{border:1px solid #e5973e; background-color:#fae6b0; background-repeat:no-repeat}

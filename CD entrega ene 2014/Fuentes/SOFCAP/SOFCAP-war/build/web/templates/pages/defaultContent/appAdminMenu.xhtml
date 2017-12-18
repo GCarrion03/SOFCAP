@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	
+	<rich:toolbarGroup>
+		<rich:dropDownMenu id="rm" binding="#{sessionDataManagerBase.rapidAccessMenu}"/>
+		<rich:dropDownMenu id="fm" binding="#{sessionDataManagerBase.favoriteMenu}"/>
+		<rich:dropDownMenu>
+			<f:facet name="label"><h:graphicImage library="images/icons" name="administracion.gif"/></f:facet>
+			<rich:menuItem id="mi6" mode="ajax" label="Perfiles" oncomplete="#{rich:component('Perfiles')}.show()" execute="@this" immediate="true" actionListener="#{changeProfilesController.cargarPerfiles}" render="panel">
+				<f:facet name="icon"><h:graphicImage library="images/icons" name="cambiarPerfil17.gif"/></f:facet>
+			</rich:menuItem>
+			<rich:menuSeparator/>
+			<rich:menuItem id="mi1" mode="client" label="#{msg_utilJSF['etiqueta.administracion.favoritos']}" onclick="window.parent.openFrame('pages/adminFavoritos.jsf','admFav','#{msg_utilJSF['etiqueta.administracion.favoritos']}');" execute="@this" immediate="true"/>
+			<rich:menuItem id="mi2" mode="ajax" label="#{msg_utilJSF['etiqueta.agregar.favoritos']}" actionListener="#{loginController.addOptionToFavorite}" 
+				execute="@this" immediate="true">
+				<f:facet name="icon"><h:graphicImage library="images/icons" name="agregarFavorito.gif"/></f:facet>
+				<f:attribute name="accessItemId" value="#{accessItemId}"/>
+			</rich:menuItem>
+			<rich:menuGroup label="oculto" rendered="false"/>
+			<rich:menuSeparator/>
+			<rich:menuItem id="mi3" mode="ajax" label="Ventanas abiertas" oncomplete="#{rich:component('mpw')}.show()" execute="@this" immediate="true" render="mpw">
+				<f:facet name="icon"><h:graphicImage library="images/icons" name="ventanas.gif"/></f:facet>
+			</rich:menuItem>
+			<rich:menuSeparator/>
+			<rich:menuItem id="mi4" mode="client" label="#{msg_utilJSF['menu.etiqueta.ayuda']}" execute="@this" immediate="true" icon="#{resource['images/icons:help.gif']}"/>
+			<rich:menuItem id="mi5" mode="ajax" label="#{msg_utilJSF['menu.etiqueta.cerrarSesion']}" actionListener="#{loginController.logoutUser}" execute="@this" immediate="true" oncomplete="window.parent.close()"/>
+		</rich:dropDownMenu>
+	</rich:toolbarGroup>
+</ui:composition>

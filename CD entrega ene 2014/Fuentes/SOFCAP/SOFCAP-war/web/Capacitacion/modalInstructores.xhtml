@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <rich:popupPanel header="Selección de instructores" autosized="true"
+                     moveable="false" id="mpins" width="400" height="500">
+        <f:facet name="controls">
+				<h:outputLink value="#" onclick="#{rich:component('mpins')}.hide();">
+					<h:graphicImage library="images/icons" name="closebar.png"
+						style="border:0px" id="hidelinkins" />
+				</h:outputLink>
+			</f:facet>
+        <h:form>
+            <a4j:outputPanel id="panelInstructor">
+                <h:outputText value="Seleccione los instructores que dictarán la capacitación:"/>
+                <div style="height:400px;overflow-y:scroll;">
+                <p:dataTable value="#{nuevaCapacitacionDataManager.listaInstructorVista}" var="instructor">
+                    <p:column headerText="Nombre instructor:" filterBy="#{instructor.nominstr}" 
+                    filterMatchMode="contains">
+                        <h:outputText value="#{instructor.nominstr}"/>
+                    </p:column>
+                    <p:column headerText="Capacitará:">
+                        <h:selectBooleanCheckbox value="#{instructor.seleccionado}" id="checkIns">
+                            <a4j:ajax event="click" execute="@this" render="checkIns"/>
+                        </h:selectBooleanCheckbox>
+                    </p:column>
+                </p:dataTable>
+                    </div>
+            </a4j:outputPanel>
+            <center>
+            <a4j:commandButton value="Aceptar"
+                               action="#{nuevaCapacitacionController.anadirCapacitadoresPlanificacion}" execute="panelInstructor"
+                               onclick="#{rich:component('mpins')}.hide()"/>
+            </center>
+        </h:form>
+
+    </rich:popupPanel>
+</ui:composition>

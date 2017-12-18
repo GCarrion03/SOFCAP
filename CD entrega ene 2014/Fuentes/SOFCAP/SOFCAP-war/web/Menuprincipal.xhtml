@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Menú principal</title> 
+    </h:head>
+    <h:body>
+        <h:outputStylesheet>
+            .textSmall{font-family: Arial, Verdana, sans-serif;font-size: 12px; font-weight:bold;}
+        </h:outputStylesheet>
+        <h:outputStylesheet library="css" name="buttons-base.css"/>
+        <h:form id="#{nuevaCapacitacionController.form}">
+                
+            <rich:toolbar itemSeparator="line" style="height:70px;padding:1px;background-repeat:repeat;">
+                
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px; height: 80px;"
+                              rendered="#{menuDataManager.usuarioSesion.idRol==1}">
+                    <a4j:commandLink value="Nueva planificación"
+                                     styleClass="NEWPLANA" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.nuevaPlanificacionCapacitacion}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px;height: 80px;" rendered="#{menuDataManager.usuarioSesion.idRol==1 or menuDataManager.usuarioSesion.idRol==2}">
+                    <a4j:commandLink value="Seleccionar capacitados"
+                                     styleClass="PLANASSISA" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.seleccionarAsistentes}">
+                    </a4j:commandLink>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px; height: 80px;" rendered="#{menuDataManager.usuarioSesion.idRol==1 or menuDataManager.usuarioSesion.idRol==3}">
+                    <a4j:commandLink value="Nueva capacitación"
+                                     styleClass="NEWCOURSEA" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.nuevaCapacitacion}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px;height: 80px;" rendered="#{menuDataManager.usuarioSesion.idRol==1 || menuDataManager.usuarioSesion.idRol==3}">
+                    <a4j:commandLink value="Editar capacitación"
+                                     styleClass="EDITCAPA" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.editarCapacitacion}" />
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Reportes"
+                                     styleClass="REPORTA" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.cargarTiposReportes}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{menuDataManager.usuarioSesion.idRol==1}" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Tema"
+                                     styleClass="EDITTHEME" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.gestionarTemas}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{menuDataManager.usuarioSesion.idRol==1}" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Usuarios"
+                                     styleClass="EDITUSER" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.gestionarUsuarios}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{menuDataManager.usuarioSesion.idRol==1}" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Headcount"
+                                     styleClass="EDITHCOU" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.editarHeadcount}" />
+
+                </h:panelGroup>
+                 <h:panelGroup layout="block" rendered="#{menuDataManager.usuarioSesion.idRol==1}" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Líderes"
+                                     styleClass="EDITLEAD" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.gestionarLideres}" />
+
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="botonA" style="width:45px;height: 80px;">
+                    <a4j:commandLink value="Cerrar sesión"
+                                     styleClass="CLOSES" immediate="true" execute="@this"
+                                     action="/index?faces-redirect=true" />
+
+                </h:panelGroup>
+                
+                <h:panelGroup  style="float: right;">
+                    
+                </h:panelGroup>
+                
+            </rich:toolbar>
+             <div style="position: absolute !important; top: 78%;right: 0.5em;">
+                     
+        <p:panel style="background-color: #C6D4E1;" >
+            <h:panelGrid columns="1" style="height:100%;">
+                        <h:graphicImage library="images/icons" name="LogoGM-OBB.jpg" width="100px" />
+                        <h:panelGrid columns="2" width="100%" style="height:30px;border-spacing:0px;">
+                        <h:outputText value="#{menuDataManager.usuarioSesion.nomusr}" styleClass="textSmall"/>
+                        <h:panelGroup layout="block" styleClass="botonA" style="visibility: hidden;width:33px;height: 30px;">
+                        <a4j:commandLink 
+                                     styleClass="EDITCURUSR" immediate="true" execute="@this"
+                                     action="#{nuevaCapacitacionController.gestionarUsuarios}" />
+                        </h:panelGroup>
+                        </h:panelGrid>
+                    </h:panelGrid>
+        </p:panel> 
+                    </div>
+             
+        </h:form>
+    </h:body>
+    <style>
+        .ui-panel-content.ui-widget-content{
+            padding: 0.5em 0.5em !important;
+        }
+    </style>
+</html>

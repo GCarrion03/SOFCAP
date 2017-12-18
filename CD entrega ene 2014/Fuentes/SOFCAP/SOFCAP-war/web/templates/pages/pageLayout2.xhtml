@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<f:view contentType="text/html" locale="en">
+	<h:head>
+                <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1"/>
+		<h:outputScript library="js"  name="jquery/jquery.ui.core.min.js" />
+		<h:outputScript library="js" name="jquery/jquery.ui.widget.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.ui.mouse.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.ui.draggable.min.js"/>
+		<h:outputScript library="js" name="jquery/jquery.layout-latest.min.js"/>
+                <title><ui:insert name="titulo"></ui:insert></title>
+	</h:head>
+	<h:body>
+		<!-- necesario para la inicialización del formulario -->
+		<h:outputText value="#{controller.form}" style="visibility: hidden;position: absolute;left:100px;top: 0px;"/>
+		<h:form id="#{idForm}">
+			<div>
+				<ui:insert name="contentCenter">
+					<ui:include src="defaultContent/body.xhtml" />
+				</ui:insert>
+			</div>
+		</h:form>
+
+		<a4j:outputPanel id="opmp">
+			<ui:insert name="modal"/>
+			<a4j:status id="statusAjax2" onstart="#{rich:component('statusDialog')}.show()" onstop="#{rich:component('statusDialog')}.hide()"/>
+		</a4j:outputPanel>
+		<!--<ui:include src="defaultContent/modalOpenedWindows.xhtml"/>-->
+	</h:body>
+        <p:notificationBar position="bottom" effect="fade" widgetVar="messageBar">
+		<f:facet name="close">
+                    <h:graphicImage library="images/icons" name="closebar.png"/>
+                </f:facet>
+		<a4j:outputPanel ajaxRendered="true" id="messages">
+                    <p:messages />
+                </a4j:outputPanel>
+	</p:notificationBar>
+        <a4j:outputPanel ajaxRendered="true" id="notification">
+		<script type="text/javascript">
+			jQuery(document).ready(function (){
+
+				if(#{facesContext.maximumSeverity != null}){
+					messageBar.show();
+				}else{
+					messageBar.hide();
+				}
+			});
+		</script>
+	</a4j:outputPanel>
+            <a4j:status id="statusAjax" onstart="#{rich:component('statusDialog')}.show()" onstop="#{rich:component('statusDialog')}.hide()"/>
+                <p:ajaxStatus id="status1" onstart="#{rich:component('statusDialog')}.show()" oncomplete="#{rich:component('statusDialog')}.hide()"/>
+                <rich:popupPanel id="statusDialog" autosized="true" header="Procesando...">
+                    <h:graphicImage library="images" name="ajaxloadingbar.gif" width="200px"/>
+                </rich:popupPanel>
+	<h:outputStylesheet library="css" name="base.css"/>
+	<h:outputStylesheet library="css" name="layout.css"/>
+	<h:outputStylesheet library="css" name="buttons-base.css"/>
+	<h:outputStylesheet library="primefaces/css" name="datatable.css"/>
+	<h:outputStylesheet library="primefaces/css" name="notificationBar.css"/>
+	<h:outputStylesheet library="richfaces/css" name="toolbar.css"/>
+	<h:outputStylesheet library="richfaces/css" name="panel.css"/>
+	</f:view>
+    
+</html>

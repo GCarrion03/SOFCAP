@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      template="/templates/pages/pageLayout2.xhtml">
+     <ui:param name="form"
+	value="#{nuevaCapacitacionController.form}" />
+    <ui:param name="controller"
+	value="#{nuevaCapacitacionController}" />
+    <ui:param name="idForm" value="frmActRegSan" />
+    <ui:param name="titulo" value="Capacitación" />
+
+    <ui:define name="contentCenter">
+            <p:panel header="Búsqueda de capacitaciones">
+                <h:panelGrid columns="6" id="filtros">
+                     <h:outputText value="Tema:"/>
+
+                    <h:outputText value="Fecha de inicio:"/>
+                        <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaInicio}" datePattern="d/M/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                        <h:outputText value="Fecha de fin:"/>
+                        <rich:calendar value="#{nuevaCapacitacionDataManager.curso.fechaFin}" datePattern="d/M/yy HH:mm"
+                                       showApplyButton="#{true}" locale="es"/>
+                        <a4j:commandButton value="Buscar Capacitaciones" action="#{nuevaCapacitacionController.buscarCapacitaciones}"
+                                           execute="@form" render="panelBusqueda"/>
+            </h:panelGrid>
+            </p:panel>
+
+
+            <center>
+            <a4j:outputPanel id="panelBusqueda"> 
+            <rich:dataTable id="tblBuscar" value="#{nuevaCapacitacionDataManager.cursos}"
+                            rendered="#{!empty nuevaCapacitacionDataManager.cursos}" var="curso"
+                            rowKeyVar="numrow">
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nro."/>
+                    </f:facet>
+                    <h:outputText value="#{numrow+1}">
+                    </h:outputText>
+                </rich:column>
+                 <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre de instructor"/>
+                    </f:facet>
+                     <a4j:commandLink value="#{curso.instructor.nominstr}" action="#{nuevaCapacitacionController.visualizarCapacitacion}">
+                        <f:setPropertyActionListener value="#{curso}"
+                                                     target="#{nuevaCapacitacionDataManager.curso}" />
+                        <f:setPropertyActionListener value="#{curso.plantillaCurso}"
+                                                     target="#{nuevaCapacitacionDataManager.planificacionCurso}"/>
+                       
+                    </a4j:commandLink>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tema"/>
+                    </f:facet>
+                     <h:outputText value="#{curso.plantillaCurso.tema.nomtema}">
+                     </h:outputText>
+                </rich:column>
+                
+                 <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha de inicio"/>
+                    </f:facet>
+                     <h:outputText value="#{curso.fechaInicio}">
+                     </h:outputText>
+                </rich:column>
+                 <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha de fin"/>
+                    </f:facet>
+                     <h:outputText value="#{curso.fechaFin}">
+                     </h:outputText>
+                </rich:column>
+                <!--<rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tema"/>
+                    </f:facet>
+                    <a4j:commandLink value="#{curso.tema.nomtema}" action="#{nuevaCapacitacionController.visualizarCapacitacion}">
+                        <f:setPropertyActionListener value="#{curso}"
+                                                     target="#{nuevaCapacitacionDataManager.curso}" />
+                    </a4j:commandLink>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Objetivo"/>
+                    </f:facet>
+                    <h:outputText value="#{curso.objetivo}">
+              
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha Inicio"/>
+                    </f:facet>
+                    <h:outputText value="#{curso.fechaInicio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" timeZone="EST" type="date" />
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha Fin"/>
+                    </f:facet>
+                    <h:outputText value="#{curso.fechaFin}">
+                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" timeZone="EST" type="date" />
+                    </h:outputText>
+                </rich:column>-->
+            </rich:dataTable>
+                </a4j:outputPanel>
+                </center>
+        
+        </ui:define>
+</ui:composition>
